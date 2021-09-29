@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ua.kma.spring.schedule.schedule.enums.CourseType;
 import ua.kma.spring.schedule.schedule.enums.LessonType;
 import ua.kma.spring.schedule.schedule.enums.Season;
 
@@ -43,5 +44,13 @@ public class CourseEntity {
     @OneToMany(mappedBy = "course")
     @Builder.Default
     Set<LessonEntity> lessons = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "speciality_course_type")
+    @MapKeyColumn(name = "speciality_id")
+    @Column(name = "type")
+    @Builder.Default
+    //Add PROFESSIONAL and NORMATIVE. If course_id is not present, assume type FREE
+    private Map<Long, CourseType> typeBySpeciality = new HashMap<>();
 
 }
