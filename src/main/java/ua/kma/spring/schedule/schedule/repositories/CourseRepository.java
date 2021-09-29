@@ -1,4 +1,7 @@
 package ua.kma.spring.schedule.schedule.repositories;
 
-public class CourseRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import ua.kma.spring.schedule.schedule.entities.CourseEntity;
+
+public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 }

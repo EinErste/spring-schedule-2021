@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "faculty")
 @Data
@@ -25,5 +25,5 @@ public class FacultyEntity {
 
     @OneToMany(mappedBy = "faculty")
     @Builder.Default
-    Set<SpecialityEntity> specialities = new HashSet<>();
+    private Set<SpecialityEntity> specialities = new HashSet<>();
 }

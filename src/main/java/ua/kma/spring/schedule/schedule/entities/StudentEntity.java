@@ -4,9 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Table(name = "student")
@@ -14,8 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@EqualsAndHashCode
-public class StudentEntity extends UserEntity{
+public class StudentEntity extends UserEntity {
 
     @Column(name = "year")
     private int year;

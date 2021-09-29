@@ -20,11 +20,11 @@ public class LessonEntity {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name="course_id", nullable=false)
+    @JoinColumn(name = "course_id", nullable = false)
     private CourseEntity course;
 
     @ManyToOne
-    @JoinColumn(name="staff_id", nullable=false)
+    @JoinColumn(name = "staff_id", nullable = false)
     private StaffEntity staff;
 
     @Column(name = "group")
@@ -44,26 +44,27 @@ public class LessonEntity {
     private String weeks;
 
     public List<Integer> getWeeks() {
-        List<Integer> weeks = new ArrayList<>();
+        List<Integer> parsedWeeks = new ArrayList<>();
         int val = 0;
 
-        for(String field : this.weeks.split(",")) {
+        for (String field : this.weeks.split(",")) {
             try {
                 val = Integer.parseInt(field);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
             }
-            catch (NumberFormatException e) { }
-            weeks.add(val);
+            parsedWeeks.add(val);
         }
 
-        return weeks;
+        return parsedWeeks;
     }
 
     public void setWeeks(List<Integer> weeks) {
-        String newWeeeks = "";
-        for(int i : weeks) {
-            newWeeeks.concat(String.valueOf(i));
+        String newWeeks = "";
+        for (int i : weeks) {
+            newWeeks = newWeeks.concat(String.valueOf(i));
         }
-        this.weeks = newWeeeks;
+        this.weeks = newWeeks;
     }
 
 

@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ua.kma.spring.schedule.schedule.enums.CourseType;
-import ua.kma.spring.schedule.schedule.enums.LessonType;
 import ua.kma.spring.schedule.schedule.enums.Season;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Table(name = "course")
 @Data
@@ -43,7 +45,7 @@ public class CourseEntity {
 
     @OneToMany(mappedBy = "course")
     @Builder.Default
-    Set<LessonEntity> lessons = new HashSet<>();
+    private Set<LessonEntity> lessons = new HashSet<>();
 
     @ElementCollection
     @CollectionTable(name = "speciality_course_type")

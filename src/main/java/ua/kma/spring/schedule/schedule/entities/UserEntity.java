@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
-@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = { "email"})})
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +21,7 @@ public class UserEntity {
 
     @Column(name = "name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
 

@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Table(name = "speciality")
 @Data
@@ -23,6 +22,6 @@ public class SpecialityEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="faculty_id", nullable=false)
+    @JoinColumn(name = "faculty_id", nullable = false)
     private FacultyEntity faculty;
 }
