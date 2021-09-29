@@ -8,13 +8,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Table(name = "student")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 public class StudentEntity extends UserEntity {
 
-    @Column(name = "year")
+    @Column(name = "student_year")
     private int year;
 
     @ManyToMany

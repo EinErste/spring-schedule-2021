@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "lesson")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -27,7 +28,7 @@ public class LessonEntity {
     @JoinColumn(name = "staff_id", nullable = false)
     private StaffEntity staff;
 
-    @Column(name = "group")
+    @Column(name = "lesson_group")
     private int group;
 
     @Column(name = "type")

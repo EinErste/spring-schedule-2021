@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Table(name = "course")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public class CourseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "year")
+    @Column(name = "course_year")
     private int year;
 
     @Column(name = "hours")

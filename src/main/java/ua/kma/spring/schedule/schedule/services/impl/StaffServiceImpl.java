@@ -3,9 +3,10 @@ package ua.kma.spring.schedule.schedule.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.kma.spring.schedule.schedule.repositories.StaffRepository;
+import ua.kma.spring.schedule.schedule.services.StaffService;
 
 @Service
-public class StaffServiceImpl {
+public class StaffServiceImpl implements StaffService {
     private final StaffRepository repository;
 
     @Autowired

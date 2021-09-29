@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Table(name = "speciality")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
