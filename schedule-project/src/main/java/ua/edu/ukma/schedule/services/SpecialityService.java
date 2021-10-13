@@ -1,4 +1,6 @@
 package ua.edu.ukma.schedule.services;
 
-public interface SpecialityService {
+import ua.edu.ukma.schedule.model.Speciality;
+
+public interface SpecialityService extends CRUDService<Speciality> {
 }
