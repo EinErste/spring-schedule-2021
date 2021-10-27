@@ -1,7 +1,7 @@
 package ua.edu.ukma.schedule.controllers;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.schedule.model.Faculty;
 import ua.edu.ukma.schedule.services.FacultyService;
@@ -11,11 +11,15 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/faculty")
-@RequiredArgsConstructor
 @Log4j2
 public class FacultyController {
 
     private final FacultyService service;
+
+    @Autowired
+    public FacultyController(FacultyService service) {
+        this.service = service;
+    }
 
     @PostMapping(value = "/")
     public CustomResponse<Long> create(@RequestBody @Valid Faculty faculty) {

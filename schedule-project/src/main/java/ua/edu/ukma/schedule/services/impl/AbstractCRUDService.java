@@ -1,5 +1,6 @@
 package ua.edu.ukma.schedule.services.impl;
 
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Marker;
@@ -11,6 +12,7 @@ import ua.edu.ukma.schedule.services.CRUDService;
 import java.util.Objects;
 
 @Log4j2
+@NoArgsConstructor
 public class AbstractCRUDService<T> implements CRUDService<T> {
     private static final Marker SHOW = MarkerManager.getMarker("SHOW");
 

@@ -18,7 +18,7 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(Exception.class)
     public CustomResponse handle(Exception e) {
-        return CustomResponse.of(new CustomResponseError(INTERNAL_SERVER_ERROR.value(), "Internal server error"));
+        return CustomResponse.of(new CustomResponseError(INTERNAL_SERVER_ERROR.value(), INTERNAL_SERVER_ERROR.getReasonPhrase()));
     }
 
     @ExceptionHandler(CustomException.class)

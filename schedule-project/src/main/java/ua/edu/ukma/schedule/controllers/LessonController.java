@@ -6,14 +6,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.edu.ukma.schedule.services.impl.StudentServiceImpl;
+import ua.edu.ukma.schedule.services.StudentService;
 
 @RestController
 @RequestMapping("/api/lesson")
 @RequiredArgsConstructor
 @Log4j2
 public class LessonController {
-    private final StudentServiceImpl studentService;
+
+    private final StudentService studentService;
 
     @PostMapping(value = "/{studentId}/{lessonId}")
     public void addLessonToUser(@PathVariable int studentId, @PathVariable int lessonId) {
