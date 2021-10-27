@@ -9,7 +9,6 @@ import ua.edu.ukma.schedule.exception.EntityNotFoundException;
 import ua.edu.ukma.schedule.services.CRUDService;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Log4j2
 public class AbstractCRUDService<T> implements CRUDService<T> {
@@ -24,23 +23,23 @@ public class AbstractCRUDService<T> implements CRUDService<T> {
     @Override
     public T save(T entity) {
         Objects.requireNonNull(entity, "Entity must be not null");
-        log.info(SHOW, "Saving {}",entity.getClass().toString());
+        log.info(SHOW, "Saving {}", entity.getClass().toString());
         return repository.save(entity);
     }
 
     @Override
     @SneakyThrows
     public T getById(long id) {
-        Optional<T> wrapped = repository.findById(id);
-        if(!wrapped.isPresent()) throw new EntityNotFoundException();
-        return wrapped.get();
+        return repository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
     public void delete(T entity) {
         Objects.requireNonNull(entity, "Entity must be not null");
         repository.delete(entity);
-        log.info(SHOW, "{} was deleted",entity.getClass().toString());
+        log.info(SHOW, "{} was deleted", entity.getClass().toString());
     }
 
     @Override

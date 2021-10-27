@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.schedule.model.Student;
+import ua.edu.ukma.schedule.model.User;
 import ua.edu.ukma.schedule.services.StudentService;
 import ua.edu.ukma.schedule.util.CustomResponse;
 
@@ -17,32 +18,24 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public CustomResponse<Long> create(
-            @RequestBody @Valid Student user
-    ) {
-        return CustomResponse.of(studentService.save(user).getId());
+    @PostMapping(value = "/")
+    public CustomResponse<User> create(@RequestBody @Valid Student user) {
+        return CustomResponse.of(studentService.save(user));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public CustomResponse<Student> read(
-            @PathVariable(value = "id") Long id
-    ) {
+    @GetMapping(value = "/{id}")
+    public CustomResponse<Student> read(@PathVariable(value = "id") Long id) {
         return CustomResponse.of(studentService.getById(id));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public CustomResponse<Boolean> update(
-            @RequestBody @Valid Student user
-    ) {
+    @PutMapping(value = "/")
+    public CustomResponse<Boolean> update(@RequestBody @Valid Student user) {
         studentService.save(user);
         return CustomResponse.of(true);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public CustomResponse<Boolean> delete(
-            @PathVariable(value = "id") Long id
-    ) {
+    @DeleteMapping(value = "/{id}")
+    public CustomResponse<Boolean> delete(@PathVariable(value = "id") Long id) {
         studentService.delete(id);
         return CustomResponse.of(true);
     }

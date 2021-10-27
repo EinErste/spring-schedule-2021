@@ -9,6 +9,8 @@ import ua.edu.ukma.schedule.exception.EntityNotFoundException;
 import ua.edu.ukma.schedule.util.CustomResponse;
 import ua.edu.ukma.schedule.util.CustomResponseError;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
 @Log4j2
 @RestControllerAdvice
 @RequiredArgsConstructor
@@ -16,17 +18,17 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(Exception.class)
     public CustomResponse handle(Exception e) {
-        return CustomResponse.of(new CustomResponseError(500,"Internal server error"));
+        return CustomResponse.of(new CustomResponseError(INTERNAL_SERVER_ERROR.value(), "Internal server error"));
     }
 
     @ExceptionHandler(CustomException.class)
     public CustomResponse handle(CustomException e) {
-        return CustomResponse.of(new CustomResponseError(e.getCode(),e.getMessage()));
+        return CustomResponse.of(new CustomResponseError(e.getCode(), e.getMessage()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public CustomResponse handle(EntityNotFoundException e) {
         log.debug("Specific custom exception");
-        return CustomResponse.of(new CustomResponseError(e.getCode(),e.getMessage()));
+        return CustomResponse.of(new CustomResponseError(e.getCode(), e.getMessage()));
     }
 }
