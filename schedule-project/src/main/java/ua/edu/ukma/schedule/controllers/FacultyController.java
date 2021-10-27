@@ -3,39 +3,41 @@ package ua.edu.ukma.schedule.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
+import ua.edu.ukma.schedule.model.Faculty;
 import ua.edu.ukma.schedule.model.Student;
+import ua.edu.ukma.schedule.services.FacultyService;
 import ua.edu.ukma.schedule.services.StudentService;
 import ua.edu.ukma.schedule.util.CustomResponse;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/student")
+@RequestMapping("/api/faculty")
 @RequiredArgsConstructor
 @Log4j2
-public class StudentController {
+public class FacultyController {
 
-    private final StudentService studentService;
+    private final FacultyService service;
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public CustomResponse<Long> create(
-            @RequestBody @Valid Student user
+            @RequestBody @Valid Faculty faculty
     ) {
-        return CustomResponse.of(studentService.save(user).getId());
+        return CustomResponse.of(service.save(faculty).getId());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public CustomResponse<Student> read(
+    public CustomResponse<Faculty> read(
             @PathVariable(value = "id") Long id
     ) {
-        return CustomResponse.of(studentService.getById(id));
+        return CustomResponse.of(service.getById(id));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
     public CustomResponse<Boolean> update(
-            @RequestBody @Valid Student user
+            @RequestBody @Valid Faculty faculty
     ) {
-        studentService.save(user);
+        service.save(faculty);
         return CustomResponse.of(true);
     }
 
@@ -43,7 +45,7 @@ public class StudentController {
     public CustomResponse<Boolean> delete(
             @PathVariable(value = "id") Long id
     ) {
-        studentService.delete(id);
+        service.delete(id);
         return CustomResponse.of(true);
     }
 }

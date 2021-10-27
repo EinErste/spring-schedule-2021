@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,9 +23,11 @@ public class Faculty {
     private long id;
 
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @Column(name = "full_name")
+    @NotBlank
     private String fullName;
 
     @OneToMany(mappedBy = "faculty")

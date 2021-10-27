@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +18,8 @@ import java.util.Set;
 public class Student extends User {
 
     @Column(name = "student_year")
+    @Min(1)
+    @Max(6)
     private int year;
 
     @ManyToMany

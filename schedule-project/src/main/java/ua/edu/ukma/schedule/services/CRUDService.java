@@ -8,4 +8,6 @@ public interface CRUDService<T> {
 
     void delete(T entity);
 
+    void delete(long id);
+
 }

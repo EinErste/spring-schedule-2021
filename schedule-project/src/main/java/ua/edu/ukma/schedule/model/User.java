@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Table(name = "app_user", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 @Entity
@@ -21,14 +23,18 @@ public class User {
     private long id;
 
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @Column(name = "surname")
+    @NotBlank
     private String surname;
 
     @Column(name = "email")
+    @NotBlank
     private String email;
-    //hash
+
     @Column(name = "password")
+    @NotBlank
     private String password;
 }
