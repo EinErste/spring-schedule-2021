@@ -1,0 +1,415 @@
+openapi: 3.0.1
+info:
+  title: Schedule Swagger Api
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: FacultyController
+  description: Processing operations with faculties
+- name: StudentController
+  description: Processing operations with students
+- name: LessonController
+  description: Processing operations with lessons
+paths:
+  /api/student/:
+    put:
+      tags:
+      - StudentController
+      summary: Updating a student
+      description: Let update a student
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseBoolean'
+    post:
+      tags:
+      - StudentController
+      summary: Adding new student
+      description: Let add a new student
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseUser'
+  /api/faculty/:
+    put:
+      tags:
+      - FacultyController
+      summary: Updating a faculty
+      description: Let update a faculty
+      operationId: update_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseBoolean'
+    post:
+      tags:
+      - FacultyController
+      summary: Adding new faculty
+      description: Let add a new faculty
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseLong'
+  /api/lesson/{studentId}/{lessonId}:
+    post:
+      tags:
+      - LessonController
+      summary: Adding a lesson to student
+      description: Let add a lesson to student`s personal schedule
+      operationId: addLessonToUser
+      parameters:
+      - name: studentId
+        in: path
+        description: Student id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: lessonId
+        in: path
+        description: Lesson id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+  /api/student/{id}:
+    get:
+      tags:
+      - StudentController
+      summary: Getting a student
+      description: Get a student with given id
+      operationId: read
+      parameters:
+      - name: id
+        in: path
+        description: Student id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseStudent'
+    delete:
+      tags:
+      - StudentController
+      summary: Deleting a student
+      description: Let delete a student
+      operationId: delete
+      parameters:
+      - name: id
+        in: path
+        description: Student id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseBoolean'
+  /api/faculty/{id}:
+    get:
+      tags:
+      - FacultyController
+      summary: Getting a faculty
+      description: Get a faculty with given id
+      operationId: read_1
+      parameters:
+      - name: id
+        in: path
+        description: Faculty id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseFaculty'
+    delete:
+      tags:
+      - FacultyController
+      summary: Deleting a faculty
+      description: Let delete a faculty
+      operationId: delete_1
+      parameters:
+      - name: id
+        in: path
+        description: Faculty id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseBoolean'
+components:
+  schemas:
+    Course:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        year:
+          type: integer
+          format: int32
+        hours:
+          type: integer
+          format: int32
+        credits:
+          type: integer
+          format: int32
+        maxGroups:
+          type: integer
+          format: int32
+        season:
+          type: string
+          enum:
+          - FALL
+          - SPRING
+          - SUMMER
+        lessons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Lesson'
+        typeBySpeciality:
+          type: object
+          additionalProperties:
+            type: string
+            enum:
+            - PROFESSIONAL
+            - FREE
+            - NORMATIVE
+    Lesson:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        course:
+          $ref: '#/components/schemas/Course'
+        staff:
+          $ref: '#/components/schemas/Staff'
+        group:
+          type: integer
+          format: int32
+        type:
+          type: string
+          enum:
+          - LECTURE
+          - PRACTICE
+        time:
+          type: string
+          format: date-time
+        weeks:
+          type: array
+          items:
+            type: integer
+            format: int32
+    Staff:
+      required:
+      - email
+      - name
+      - password
+      - surname
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        position:
+          type: string
+    Student:
+      required:
+      - email
+      - name
+      - password
+      - surname
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        year:
+          maximum: 6
+          minimum: 1
+          type: integer
+          format: int32
+        lessons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Lesson'
+    CustomResponseBoolean:
+      type: object
+      properties:
+        result:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/CustomResponseError'
+    CustomResponseError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Faculty:
+      required:
+      - fullName
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        fullName:
+          type: string
+        specialities:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Speciality'
+    Speciality:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        code:
+          type: integer
+          format: int32
+        faculty:
+          $ref: '#/components/schemas/Faculty'
+    CustomResponseUser:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/User'
+        error:
+          $ref: '#/components/schemas/CustomResponseError'
+    User:
+      required:
+      - email
+      - name
+      - password
+      - surname
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    CustomResponseLong:
+      type: object
+      properties:
+        result:
+          type: integer
+          format: int64
+        error:
+          $ref: '#/components/schemas/CustomResponseError'
+    CustomResponseStudent:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Student'
+        error:
+          $ref: '#/components/schemas/CustomResponseError'
+    CustomResponseFaculty:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Faculty'
+        error:
+          $ref: '#/components/schemas/CustomResponseError'
