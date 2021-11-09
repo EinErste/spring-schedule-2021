@@ -49,4 +49,9 @@ public class StudentServiceImpl extends AbstractCRUDService<Student> implements 
 
     }
 
+    @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
+
 }

@@ -26,7 +26,7 @@ public class FacultyController {
     }
 
     @Operation(
-            summary = "Adding new faculty",
+            summary = "Add new faculty",
             description = "Let add a new faculty"
     )
     @PostMapping(value = "/")
@@ -35,7 +35,7 @@ public class FacultyController {
     }
 
     @Operation(
-            summary = "Getting a faculty",
+            summary = "Get a faculty",
             description = "Get a faculty with given id"
     )
     @GetMapping(value = "/{id}")
@@ -44,7 +44,7 @@ public class FacultyController {
     }
 
     @Operation(
-            summary = "Updating a faculty",
+            summary = "Update a faculty",
             description = "Let update a faculty"
     )
     @PutMapping(value = "/")
@@ -54,7 +54,7 @@ public class FacultyController {
     }
 
     @Operation(
-            summary = "Deleting a faculty",
+            summary = "Delete a faculty",
             description = "Let delete a faculty"
     )
     @DeleteMapping(value = "/{id}")

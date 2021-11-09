@@ -17,46 +17,45 @@ import javax.validation.Valid;
 @RequestMapping("/api/student")
 @RequiredArgsConstructor
 @Log4j2
-@Tag(name="StudentController", description="Processing operations with students")
+@Tag(name = "StudentController", description = "Processing operations with students")
 public class StudentController {
 
     private final StudentService studentService;
 
     @Operation(
-            summary = "Adding new student",
-            description = "Let add a new student"
+            summary = "Add new student",
+            description = "Adds a new student"
     )
-    @PostMapping(value = "/")
+    @PostMapping(value = "")
     public CustomResponse<User> create(@RequestBody @Valid Student user) {
         return CustomResponse.of(studentService.save(user));
     }
 
     @Operation(
-            summary = "Getting a student",
-            description = "Get a student with given id"
+            summary = "Get a student",
+            description = "Gets a student with given id"
     )
     @GetMapping(value = "/{id}")
-    public CustomResponse<Student> read(@PathVariable(value = "id") @Parameter(description = "Student id")  Long id) {
+    public CustomResponse<Student> read(@PathVariable(value = "id") @Parameter(description = "Student id") Long id) {
         return CustomResponse.of(studentService.getById(id));
     }
 
     @Operation(
-            summary = "Updating a student",
-            description = "Let update a student"
+            summary = "Update a student",
+            description = "Updates a student"
     )
-    @PutMapping(value = "/")
-    public CustomResponse<Boolean> update(@RequestBody @Valid Student user) {
-        studentService.save(user);
-        return CustomResponse.of(true);
+    @PutMapping(value = "")
+    public CustomResponse<Student> update(@RequestBody @Valid Student user) {
+        return CustomResponse.of(studentService.save(user));
     }
 
     @Operation(
-            summary = "Deleting a student",
-            description = "Let delete a student"
+            summary = "Delete a student",
+            description = "Deletes a student"
     )
     @DeleteMapping(value = "/{id}")
-    public CustomResponse<Boolean> delete(@PathVariable(value = "id") @Parameter(description = "Student id")  Long id) {
+    public CustomResponse<Boolean> delete(@PathVariable(value = "id") @Parameter(description = "Student id") Long id) {
         studentService.delete(id);
-        return CustomResponse.of(true);
+        return studentService.existsById(id) ? CustomResponse.of(false) : CustomResponse.of(true);
     }
 }

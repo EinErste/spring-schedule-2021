@@ -46,6 +46,8 @@ public class AbstractCRUDService<T> implements CRUDService<T> {
 
     @Override
     public void delete(long id) {
-        repository.deleteById(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        }
     }
 }
