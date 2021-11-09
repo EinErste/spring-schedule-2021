@@ -1,18 +1,16 @@
 package ua.edu.ukma.schedule.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Table(name = "speciality")
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity(name="speciality")
 public class Speciality {
 
     @Id
@@ -28,5 +26,6 @@ public class Speciality {
 
     @ManyToOne
     @JoinColumn(name = "faculty_id", nullable = false)
+    @JsonBackReference
     private Faculty faculty;
 }

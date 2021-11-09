@@ -1,21 +1,18 @@
 package ua.edu.ukma.schedule.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
-@Table(name = "faculty")
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity(name = "faculty")
 public class Faculty {
 
     @Id
@@ -31,6 +28,8 @@ public class Faculty {
     private String fullName;
 
     @OneToMany(mappedBy = "faculty")
-    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonManagedReference
     private Set<Speciality> specialities = new HashSet<>();
 }
