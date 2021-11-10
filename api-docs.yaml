@@ -3,22 +3,22 @@ info:
   title: Schedule Swagger Api
   version: 1.0.0
 servers:
-- url: http://localhost:8080
-  description: Generated server url
+  - url: http://localhost:8080
+    description: Generated server url
 tags:
-- name: FacultyController
-  description: Processing operations with faculties
-- name: StudentController
-  description: Processing operations with students
-- name: LessonController
-  description: Processing operations with lessons
+  - name: FacultyController
+    description: Processing operations with faculties
+  - name: StudentController
+    description: Processing operations with students
+  - name: LessonController
+    description: Processing operations with lessons
 paths:
-  /api/student/:
+  /api/student:
     put:
       tags:
-      - StudentController
-      summary: Updating a student
-      description: Let update a student
+        - StudentController
+      summary: Update a student
+      description: Updates a student
       operationId: update
       requestBody:
         content:
@@ -32,12 +32,12 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/CustomResponseBoolean'
+                $ref: '#/components/schemas/CustomResponseStudent'
     post:
       tags:
-      - StudentController
-      summary: Adding new student
-      description: Let add a new student
+        - StudentController
+      summary: Add new student
+      description: Adds a new student
       operationId: create
       requestBody:
         content:
@@ -55,8 +55,8 @@ paths:
   /api/faculty/:
     put:
       tags:
-      - FacultyController
-      summary: Updating a faculty
+        - FacultyController
+      summary: Update a faculty
       description: Let update a faculty
       operationId: update_1
       requestBody:
@@ -74,8 +74,8 @@ paths:
                 $ref: '#/components/schemas/CustomResponseBoolean'
     post:
       tags:
-      - FacultyController
-      summary: Adding new faculty
+        - FacultyController
+      summary: Add new faculty
       description: Let add a new faculty
       operationId: create_1
       requestBody:
@@ -94,43 +94,43 @@ paths:
   /api/lesson/{studentId}/{lessonId}:
     post:
       tags:
-      - LessonController
+        - LessonController
       summary: Adding a lesson to student
       description: Let add a lesson to student`s personal schedule
       operationId: addLessonToUser
       parameters:
-      - name: studentId
-        in: path
-        description: Student id
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: lessonId
-        in: path
-        description: Lesson id
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: studentId
+          in: path
+          description: Student id
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: lessonId
+          in: path
+          description: Lesson id
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
   /api/student/{id}:
     get:
       tags:
-      - StudentController
-      summary: Getting a student
-      description: Get a student with given id
+        - StudentController
+      summary: Get a student
+      description: Gets a student with given id
       operationId: read
       parameters:
-      - name: id
-        in: path
-        description: Student id
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          description: Student id
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "200":
           description: OK
@@ -140,18 +140,18 @@ paths:
                 $ref: '#/components/schemas/CustomResponseStudent'
     delete:
       tags:
-      - StudentController
-      summary: Deleting a student
-      description: Let delete a student
+        - StudentController
+      summary: Delete a student
+      description: Deletes a student
       operationId: delete
       parameters:
-      - name: id
-        in: path
-        description: Student id
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          description: Student id
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "200":
           description: OK
@@ -159,21 +159,35 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CustomResponseBoolean'
+  /api/student/:
+    get:
+      tags:
+        - StudentController
+      summary: Get all students
+      description: Gets all students
+      operationId: getAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomResponseCollectionStudent'
   /api/faculty/{id}:
     get:
       tags:
-      - FacultyController
-      summary: Getting a faculty
+        - FacultyController
+      summary: Get a faculty
       description: Get a faculty with given id
       operationId: read_1
       parameters:
-      - name: id
-        in: path
-        description: Faculty id
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          description: Faculty id
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "200":
           description: OK
@@ -183,18 +197,18 @@ paths:
                 $ref: '#/components/schemas/CustomResponseFaculty'
     delete:
       tags:
-      - FacultyController
-      summary: Deleting a faculty
+        - FacultyController
+      summary: Delete a faculty
       description: Let delete a faculty
       operationId: delete_1
       parameters:
-      - name: id
-        in: path
-        description: Faculty id
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          description: Faculty id
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "200":
           description: OK
@@ -227,9 +241,9 @@ components:
         season:
           type: string
           enum:
-          - FALL
-          - SPRING
-          - SUMMER
+            - FALL
+            - SPRING
+            - SUMMER
         lessons:
           uniqueItems: true
           type: array
@@ -240,9 +254,9 @@ components:
           additionalProperties:
             type: string
             enum:
-            - PROFESSIONAL
-            - FREE
-            - NORMATIVE
+              - PROFESSIONAL
+              - FREE
+              - NORMATIVE
     Lesson:
       type: object
       properties:
@@ -259,8 +273,8 @@ components:
         type:
           type: string
           enum:
-          - LECTURE
-          - PRACTICE
+            - LECTURE
+            - PRACTICE
         time:
           type: string
           format: date-time
@@ -271,10 +285,10 @@ components:
             format: int32
     Staff:
       required:
-      - email
-      - name
-      - password
-      - surname
+        - email
+        - name
+        - password
+        - surname
       type: object
       properties:
         id:
@@ -292,10 +306,10 @@ components:
           type: string
     Student:
       required:
-      - email
-      - name
-      - password
-      - surname
+        - email
+        - name
+        - password
+        - surname
       type: object
       properties:
         id:
@@ -319,13 +333,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Lesson'
-    CustomResponseBoolean:
-      type: object
-      properties:
-        result:
-          type: boolean
-        error:
-          $ref: '#/components/schemas/CustomResponseError'
     CustomResponseError:
       type: object
       properties:
@@ -334,10 +341,17 @@ components:
           format: int32
         message:
           type: string
+    CustomResponseStudent:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Student'
+        error:
+          $ref: '#/components/schemas/CustomResponseError'
     Faculty:
       required:
-      - fullName
-      - name
+        - fullName
+        - name
       type: object
       properties:
         id:
@@ -365,6 +379,13 @@ components:
           format: int32
         faculty:
           $ref: '#/components/schemas/Faculty'
+    CustomResponseBoolean:
+      type: object
+      properties:
+        result:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/CustomResponseError'
     CustomResponseUser:
       type: object
       properties:
@@ -374,10 +395,10 @@ components:
           $ref: '#/components/schemas/CustomResponseError'
     User:
       required:
-      - email
-      - name
-      - password
-      - surname
+        - email
+        - name
+        - password
+        - surname
       type: object
       properties:
         id:
@@ -399,11 +420,13 @@ components:
           format: int64
         error:
           $ref: '#/components/schemas/CustomResponseError'
-    CustomResponseStudent:
+    CustomResponseCollectionStudent:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/Student'
+          type: array
+          items:
+            $ref: '#/components/schemas/Student'
         error:
           $ref: '#/components/schemas/CustomResponseError'
     CustomResponseFaculty:
