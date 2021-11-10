@@ -8,7 +8,9 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.edu.ukma.schedule.exception.EntityNotFoundException;
 import ua.edu.ukma.schedule.services.CRUDService;
+import ua.edu.ukma.schedule.util.CustomResponseError;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Log4j2
@@ -49,5 +51,10 @@ public class AbstractCRUDService<T> implements CRUDService<T> {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         }
+    }
+
+    @Override
+    public Collection<T> getAll() {
+        return repository.findAll();
     }
 }

@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "6f46c432-f033-4d6b-8f18-7a433cb392f4",
+		"name": "Scheduler",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get faculty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test faculty\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.expect(jsonData.result.id).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/faculty/1",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"faculty",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200, correct user returned\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result.password).to.eql('1234');\r",
+							"    pm.expect(jsonData.result.name).to.eql('John');\r",
+							"    pm.expect(jsonData.result.surname).to.eql('Doe');\r",
+							"    pm.expect(jsonData.result.id).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"John\",\r\n  \"surname\": \"Doe\",\r\n  \"email\": \"JohnDoe@gmail.com\",\r\n  \"password\": \"1234\",\r\n  \"year\": 3,\r\n  \"lessons\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/api/student",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all students",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is ok\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"try {\r",
+							"    pm.environment.set(\"numberOfStudents\", pm.response.json().result.length);\r",
+							"} catch(e) {\r",
+							"    console.log(e);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/student/",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"student",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test student\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.expect(jsonData.result.id).to.eql(pm.environment.get(\"numberOfStudents\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/student/{{numberOfStudents}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"{{numberOfStudents}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student Not Exisis",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test student not exists\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(null);\r",
+							"    pm.expect(jsonData.error.code).to.equals(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/student/10232",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"10232"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test updated\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.expect(jsonData.result.password).to.eql('12345678');\r",
+							"    pm.expect(jsonData.result.id).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"John\",\r\n  \"surname\": \"Doe\",\r\n  \"email\": \"JohnDoe@gmail.com\",\r\n  \"password\": \"12345678\",\r\n  \"year\": 4,\r\n  \"lessons\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/api/student",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Result is true\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/student/1",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"student",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

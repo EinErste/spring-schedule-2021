@@ -1,5 +1,9 @@
 package ua.edu.ukma.schedule.services;
 
+import ua.edu.ukma.schedule.util.CustomResponseError;
+
+import java.util.Collection;
+
 public interface CRUDService<T> {
 
     T save(T entity);
@@ -10,4 +14,5 @@ public interface CRUDService<T> {
 
     void delete(long id);
 
+    Collection<T> getAll();
 }

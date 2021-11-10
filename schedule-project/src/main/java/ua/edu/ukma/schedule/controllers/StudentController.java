@@ -12,6 +12,7 @@ import ua.edu.ukma.schedule.services.StudentService;
 import ua.edu.ukma.schedule.util.CustomResponse;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/student")
@@ -41,6 +42,15 @@ public class StudentController {
     }
 
     @Operation(
+            summary = "Get all students",
+            description = "Gets all students"
+    )
+    @GetMapping(value = "/")
+    public CustomResponse<Collection<Student>> getAll() {
+        return CustomResponse.of(studentService.getAll());
+    }
+
+    @Operation(
             summary = "Update a student",
             description = "Updates a student"
     )
@@ -58,4 +68,5 @@ public class StudentController {
         studentService.delete(id);
         return studentService.existsById(id) ? CustomResponse.of(false) : CustomResponse.of(true);
     }
+
 }
