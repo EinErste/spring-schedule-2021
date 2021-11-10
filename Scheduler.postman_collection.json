@@ -87,6 +87,51 @@
 			"response": []
 		},
 		{
+			"name": "Create staff member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200, correct staff member returned\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result.password).to.eql('oop');\r",
+							"    pm.expect(jsonData.result.name).to.eql('Василь');\r",
+							"    pm.expect(jsonData.result.surname).to.eql('Бублик');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Василь\",\r\n  \"surname\": \"Бублик\",\r\n  \"email\": \"boop@gmail.com\",\r\n  \"password\": \"oop\",\r\n  \"position\": \"Викладач\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/api/staff",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get all students",
 			"event": [
 				{
@@ -154,6 +199,40 @@
 						"api",
 						"student",
 						"{{numberOfStudents}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get staff member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test get staff member\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.response.to.be.ok;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/staff/1",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"staff",
+						"1"
 					]
 				}
 			},
@@ -239,6 +318,50 @@
 			"response": []
 		},
 		{
+			"name": "Update staff member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Staff updated success\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.expect(jsonData.result.password).to.eql('javasucks');\r",
+							"    pm.expect(jsonData.result.position).to.eql('Бог плюсів');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Василь\",\r\n    \"surname\": \"Бублик\",\r\n    \"email\": \"boop@gmail.com\",\r\n    \"password\": \"javasucks\",\r\n    \"position\": \"Бог плюсів\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/api/staff",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete user",
 			"event": [
 				{
@@ -268,6 +391,41 @@
 						"api",
 						"student",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete staff member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete user success\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/staff/2",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"staff",
+						"2"
 					]
 				}
 			},
