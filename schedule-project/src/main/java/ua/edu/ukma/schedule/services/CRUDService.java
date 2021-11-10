@@ -1,7 +1,5 @@
 package ua.edu.ukma.schedule.services;
 
-import ua.edu.ukma.schedule.util.CustomResponseError;
-
 import java.util.Collection;
 
 public interface CRUDService<T> {
@@ -15,4 +13,6 @@ public interface CRUDService<T> {
     void delete(long id);
 
     Collection<T> getAll();
+
+    boolean existsById(Long id);
 }

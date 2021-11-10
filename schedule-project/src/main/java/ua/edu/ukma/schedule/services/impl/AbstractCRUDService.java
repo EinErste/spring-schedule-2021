@@ -57,4 +57,9 @@ public class AbstractCRUDService<T> implements CRUDService<T> {
     public Collection<T> getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
 }
