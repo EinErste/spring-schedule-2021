@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Table(name = "app_user", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 @Entity
@@ -36,4 +37,13 @@ public class User {
     @Column(name = "password")
     @NotBlank
     private String password;
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_to_permissions",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private List<Permissions> permissions;
 }
