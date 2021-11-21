@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Scheduler</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet" type="text/css" media="all"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<div th:replace="fragments/navbar.html :: navigation"></div>
+<body>
+<div sec:authorize="hasAuthority('STUDENT')" class="custom-form">
+    <p>You see this if you're student</p>
+</div>
+<div sec:authorize="hasAuthority('METHODIST')" class="custom-form">
+    <p>You see this if you're methodist</p>
+</div>
+<div sec:authorize="hasAuthority('ADMIN')" class="custom-form">
+    <p>You see this if you're admin</p>
+</div>
+</body>
+</html>
