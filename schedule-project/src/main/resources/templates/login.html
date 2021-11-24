@@ -13,21 +13,21 @@
 <body>
 <div class="custom-form">
     <form th:action="@{/login-processing}" th:object="${user}" method="post">
-        <h2 class="text-center">Log in</h2>
+        <h2 class="text-center" th:text="#{login.login}"></h2>
         <div class="form-group">
             <label for="email" hidden></label>
-            <input id="email" type="text" class="form-control" placeholder="Email" th:field="*{email}" required="required">
+            <input id="email" type="text" class="form-control" th:placeholder="#{login.email}" th:field="*{email}" required="required">
         </div>
         <div class="form-group">
             <label for="password" hidden></label>
-            <input id="password" type="password" class="form-control" placeholder="Password" th:field="*{password}"
+            <input id="password" type="password" class="form-control" th:placeholder="#{login.password}" th:field="*{password}"
                    required="required">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            <button type="submit" class="btn btn-primary btn-block" th:text="#{login.login}"></button>
         </div>
     </form>
-    <p class="text-center"><a th:href="@{/signup}">Don't have an account? Sign up</a></p>
+    <p class="text-center"><a th:href="@{/signup}" th:text="#{login.signup.suggest}"></a></p>
 
     <div class="errors-div" th:if="${error != null}">
         <div class="alert alert-danger" role="alert" th:text="${error}">

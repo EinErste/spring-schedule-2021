@@ -12,13 +12,13 @@
 <div th:replace="fragments/navbar.html :: navigation"></div>
 <body>
 <div sec:authorize="hasAuthority('STUDENT')" class="custom-form">
-    <p>You see this if you're student</p>
+    <p th:text="#{index.student}"></p>
 </div>
 <div sec:authorize="hasAuthority('METHODIST')" class="custom-form">
-    <p>You see this if you're methodist</p>
+    <p th:text="#{index.methodist}"></p>
 </div>
 <div sec:authorize="hasAuthority('ADMIN')" class="custom-form">
-    <p>You see this if you're admin</p>
+    <p th:text="#{index.admin}"></p>
 </div>
 </body>
 </html>

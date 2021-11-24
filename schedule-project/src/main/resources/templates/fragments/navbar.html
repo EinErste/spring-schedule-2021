@@ -5,20 +5,20 @@
 <nav th:fragment="navigation" class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Scheduler</a>
+            <a class="navbar-brand" href="/" th:text="#{menu.header}"></a>
         </div>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">Test</a>
+                <a class="nav-link" href="/" th:text="#{menu.test}"></a>
             </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
             <li sec:authorize="!isAuthenticated()">
-                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="/login" th:text="#{menu.login}"></a>
             </li>
             <li sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/logout">Log out</a>
+                <a class="nav-link" href="/logout" th:text="#{menu.logout}"></a>
             </li>
         </ul>
     </div>
