@@ -9,23 +9,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.schedule.model.Lesson;
+import ua.edu.ukma.schedule.model.Permissions;
 import ua.edu.ukma.schedule.model.Student;
+import ua.edu.ukma.schedule.model.User;
+import ua.edu.ukma.schedule.repositories.PermissionRepository;
 import ua.edu.ukma.schedule.repositories.StudentRepository;
 import ua.edu.ukma.schedule.services.LessonService;
 import ua.edu.ukma.schedule.services.StudentService;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 @Log4j2
 public class StudentServiceImpl extends AbstractCRUDService<Student> implements StudentService {
     private final LessonService lessonService;
+    private final PermissionRepository permissionRepository;
     private static final Marker SHOW = MarkerManager.getMarker("SHOW");
 
     @Autowired
-    public StudentServiceImpl(StudentRepository repository, LessonService lessonService) {
+    public StudentServiceImpl(StudentRepository repository, LessonService lessonService, PermissionRepository permissionsRepository) {
         super(repository);
         this.lessonService = lessonService;
+        this.permissionRepository = permissionsRepository;
     }
 
     @SneakyThrows
@@ -47,6 +53,11 @@ public class StudentServiceImpl extends AbstractCRUDService<Student> implements 
         }
         return null;
 
+    }
+    @Override
+    public Student save(Student user){
+        user.setPermissions(List.of(permissionRepository.findByPermission(Permissions.PermissionName.STUDENT)));
+        return super.save(user);
     }
 
     @Override

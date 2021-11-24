@@ -42,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAuthority(Permissions.PermissionName.STUDENT.name())
                 .antMatchers(HttpMethod.POST, "api/lesson/*/*")
                 .hasAuthority(Permissions.PermissionName.STUDENT.name())
+                .antMatchers("/signup", "/signup-processing").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

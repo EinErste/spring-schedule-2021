@@ -12,11 +12,20 @@
 <div th:replace="fragments/navbar.html :: navigation"></div>
 <body>
 <div class="custom-form">
-    <form th:action="@{/login-processing}" th:object="${user}" method="post">
-        <h2 class="text-center" th:text="#{login.login}"></h2>
+    <form th:action="@{/signup-processing}" th:object="${user}" method="post">
+        <h2 class="text-center" th:text="#{login.signup}"></h2>
         <div class="form-group">
             <label for="email" hidden></label>
             <input id="email" type="text" class="form-control" th:placeholder="#{login.email}" th:field="*{email}" required="required">
+        </div>
+        <div class="form-group">
+            <label for="name" hidden></label>
+            <input id="name" type="text" class="form-control" th:placeholder="#{login.name}" th:field="*{name}" required="required">
+        </div>
+        <div class="form-group">
+            <label for="surname" hidden></label>
+            <input id="surname" type="text" class="form-control" th:placeholder="#{login.surname}" th:field="*{surname}"
+                   required="required">
         </div>
         <div class="form-group">
             <label for="password" hidden></label>
@@ -24,17 +33,24 @@
                    required="required">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block" th:text="#{login.login}"></button>
+            <label for="year">Year:</label>
+            <select name="year" id="year" class="form-control" th:field="*{year}" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" th:text="#{login.signup}"></button>
         </div>
     </form>
-    <p class="text-center"><a href="/signup" th:text="#{login.signup.suggest}"></a></p>
+    <p class="text-center"><a th:href="@{/login}" th:text="#{login.login.suggest}"></a></p>
 
     <div class="errors-div" th:if="${error != null}">
         <div class="alert alert-danger" role="alert" th:text="${error}">
-        </div>
-    </div>
-    <div class="errors-div" th:if="${success != null}">
-        <div class="alert alert-success" role="alert" th:text="${success}">
         </div>
     </div>
 
