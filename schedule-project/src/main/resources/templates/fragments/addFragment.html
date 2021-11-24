@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<span th:fragment="formCommon" >
+<div class="form-group">
+    <label for="email" hidden></label>
+    <input id="email" type="text" class="form-control" th:placeholder="#{login.email}" th:field="*{email}" required="required">
+</div>
+<div class="form-group">
+    <label for="name" hidden></label>
+    <input id="name" type="text" class="form-control" th:placeholder="#{login.name}" th:field="*{name}" required="required">
+</div>
+<div class="form-group">
+    <label for="surname" hidden></label>
+    <input id="surname" type="text" class="form-control" th:placeholder="#{login.surname}" th:field="*{surname}"
+           required="required">
+</div>
+<div class="form-group">
+    <label for="password" hidden></label>
+    <input id="password" type="password" class="form-control" th:placeholder="#{login.password}" th:field="*{password}"
+           required="required">
+</div>
+</span>
+
+</html>

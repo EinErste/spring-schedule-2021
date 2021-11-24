@@ -8,14 +8,17 @@
             <a class="navbar-brand" href="/" th:text="#{menu.header}"></a>
         </div>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/" th:text="#{menu.test}"></a>
+            <li class="nav-item"  th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                <a class="nav-link" href="/addStaff" th:text="#{login.addStaff}"></a>
             </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
             <li sec:authorize="!isAuthenticated()">
                 <a class="nav-link" href="/login" th:text="#{menu.login}"></a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <span style="color: wheat" sec:authorize="isAuthenticated()" sec:authentication="name"></span>
             </li>
             <li sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/logout" th:text="#{menu.logout}"></a>

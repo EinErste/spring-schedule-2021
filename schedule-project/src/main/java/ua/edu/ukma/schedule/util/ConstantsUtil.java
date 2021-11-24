@@ -6,6 +6,7 @@ public class ConstantsUtil {
     }
 
     public static final String ERROR_LABEL = "error";
+    public static final String ADD_STAFF_LABEL = "addStaff";
     public static final String SUCCESS_LABEL = "success";
     public static final String LOGIN_LABEL = "login";
     public static final String SIGNUP_LABEL = "signup";

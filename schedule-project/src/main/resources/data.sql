@@ -14,4 +14,4 @@ INSERT INTO permissions(id, permission) values
 (3, 'ADMIN');
 
 INSERT INTO user_permissions(user_id, permission_id) values
-(1, 2);
+(1, 3);
