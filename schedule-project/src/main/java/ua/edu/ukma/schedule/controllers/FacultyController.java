@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ua.edu.ukma.schedule.exception.AccessException;
 import ua.edu.ukma.schedule.model.Faculty;
 import ua.edu.ukma.schedule.services.FacultyService;
 import ua.edu.ukma.schedule.util.CustomResponse;
@@ -31,7 +30,7 @@ public class FacultyController {
             description = "Let add a new faculty"
     )
     @PostMapping(value = "/")
-    public CustomResponse<Long> create(@RequestBody @Valid Faculty faculty) throws AccessException {
+    public CustomResponse<Long> create(@RequestBody @Valid Faculty faculty) {
         return CustomResponse.of(service.save(faculty).getId());
     }
 

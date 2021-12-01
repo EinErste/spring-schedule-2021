@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ua.edu.ukma.schedule.model.Permissions;
 import ua.edu.ukma.schedule.services.impl.UserServiceImpl;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+import static ua.edu.ukma.schedule.model.Permissions.PermissionName.*;
 import static ua.edu.ukma.schedule.util.ConstantsUtil.*;
 
 @Configuration
@@ -32,16 +35,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
                 .antMatchers("/resources/**", "/h2-console/**", "/css/**", "/").permitAll()
-                .antMatchers(FACULTY_API, LESSON_API, STAFF_API, STUDENT_API, "/addStaff", "/addStaff-processing")
-                .hasAuthority(Permissions.PermissionName.ADMIN.name())
-                .antMatchers(FACULTY_API, LESSON_API, STUDENT_API)
-                .hasAuthority(Permissions.PermissionName.METHODIST.name())
-                .antMatchers(HttpMethod.GET, STAFF_API)
-                .hasAuthority(Permissions.PermissionName.METHODIST.name())
-                .antMatchers(HttpMethod.GET, FACULTY_API, LESSON_API, STAFF_API, STUDENT_API)
-                .hasAuthority(Permissions.PermissionName.STUDENT.name())
-                .antMatchers(HttpMethod.POST, "api/lesson/*/*")
-                .hasAuthority(Permissions.PermissionName.STUDENT.name())
+                .antMatchers(GET, FACULTY_API, LESSON_API, STAFF_API, STUDENT_API).permitAll()
+                .antMatchers(POST, FACULTY_API, LESSON_API, STAFF_API, STUDENT_API).hasAnyAuthority(ADMIN.name(), METHODIST.name())
+                .antMatchers("/addStaff", "/addStaff-processing")
+                .hasAuthority(ADMIN.name())
+                .antMatchers(POST, "/api/lesson/*/*")
+                .hasAuthority(STUDENT.name())
                 .antMatchers("/signup", "/signup-processing").anonymous()
                 .anyRequest().authenticated()
                 .and()
