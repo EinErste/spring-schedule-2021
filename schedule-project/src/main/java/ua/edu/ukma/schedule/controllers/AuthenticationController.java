@@ -1,27 +1,19 @@
 package ua.edu.ukma.schedule.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import ua.edu.ukma.schedule.model.Student;
 import ua.edu.ukma.schedule.model.User;
 import ua.edu.ukma.schedule.services.PasswordService;
-import ua.edu.ukma.schedule.services.StudentService;
 import ua.edu.ukma.schedule.services.UserService;
 
-import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
-import static ua.edu.ukma.schedule.util.ConstantsUtil.*;
+import static ua.edu.ukma.schedule.util.ConstantsUtil.ERROR_LABEL;
+import static ua.edu.ukma.schedule.util.ConstantsUtil.LOGIN_LABEL;
 
 @Controller
 public class AuthenticationController {

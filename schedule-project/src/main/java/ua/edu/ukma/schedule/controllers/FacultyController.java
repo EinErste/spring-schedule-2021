@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ua.edu.ukma.schedule.annotation.LogExecutionTime;
 import ua.edu.ukma.schedule.model.Faculty;
 import ua.edu.ukma.schedule.services.FacultyService;
 import ua.edu.ukma.schedule.util.CustomResponse;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/faculty")
 @Log4j2
-@Tag(name="FacultyController", description="Processing operations with faculties")
+@Tag(name = "FacultyController", description = "Processing operations with faculties")
 public class FacultyController {
 
     private final FacultyService service;
@@ -38,8 +39,9 @@ public class FacultyController {
             summary = "Get a faculty",
             description = "Get a faculty with given id"
     )
+    @LogExecutionTime
     @GetMapping(value = "/{id}")
-    public CustomResponse<Faculty> read(@PathVariable(value = "id") @Parameter(description = "Faculty id")  Long id) {
+    public CustomResponse<Faculty> read(@PathVariable(value = "id") @Parameter(description = "Faculty id") Long id) {
         return CustomResponse.of(service.getById(id));
     }
 
@@ -58,7 +60,7 @@ public class FacultyController {
             description = "Let delete a faculty"
     )
     @DeleteMapping(value = "/{id}")
-    public CustomResponse<Boolean> delete(@PathVariable(value = "id") @Parameter(description = "Faculty id")  Long id) {
+    public CustomResponse<Boolean> delete(@PathVariable(value = "id") @Parameter(description = "Faculty id") Long id) {
         service.delete(id);
         return CustomResponse.of(true);
     }
