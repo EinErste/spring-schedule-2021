@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = FacultyController.class)
 class FacultyControllerTest {
 
-    public static final String TEST_USER_EMAIL = "olegvynnyk@gmail.com";
     @Autowired
     private MockMvc mockMvc;
 
@@ -53,7 +52,7 @@ class FacultyControllerTest {
                 .andExpect(status().is3xxRedirection());
     }
 
-    @WithMockUser(value = TEST_USER_EMAIL, authorities = "METHODIST")
+    @WithMockUser(authorities = "METHODIST")
     @Test
     void whenLoggedInPostRequestSuccess() throws Exception {
         Faculty faculty = Faculty.builder().name("FI").fullName("Faculty of Informatics").build();
