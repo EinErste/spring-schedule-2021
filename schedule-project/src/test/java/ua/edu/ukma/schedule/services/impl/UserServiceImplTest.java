@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import ua.edu.ukma.schedule.annotation.LogParams;
 import ua.edu.ukma.schedule.model.User;
 import ua.edu.ukma.schedule.repositories.UserRepository;
 
@@ -28,6 +29,7 @@ class UserServiceImplTest {
     private UserServiceImpl service;
 
     @Test
+    @LogParams
     void findByEmailExists() {
         User expected = new User(1, "John", "Doe", "johndoe@gmail.com", "1234", new LinkedList<>());
         when(repository.findUserByEmail("johndoe@gmail.com")).thenReturn(of(expected));

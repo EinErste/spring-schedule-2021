@@ -34,7 +34,6 @@ public class AbstractCRUDService<T> implements CRUDService<T> {
 
     @Override
     @SneakyThrows
-    @LogExecutionTime
     public T getById(long id) {
         return repository
                 .findById(id)
