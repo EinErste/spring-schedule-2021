@@ -42,7 +42,7 @@ public class RegistrationController {
 
     @PostMapping("/signup-processing")
     public String signupStudent(@ModelAttribute Student student, Model model) {
-        if (!userService.findUserByEmail(student.getEmail()).isEmpty()) {
+        if (userService.findUserByEmail(student.getEmail()).isPresent()) {
             model.addAttribute(ERROR_LABEL, "Student has already existed");
             return SIGNUP_LABEL;
         } else {
@@ -62,7 +62,7 @@ public class RegistrationController {
 
     @PostMapping("/addStaff-processing")
     public String signupStaff(@ModelAttribute Staff staff, Model model) {
-        if (!userService.findUserByEmail(staff.getEmail()).isEmpty()) {
+        if (userService.findUserByEmail(staff.getEmail()).isPresent()) {
             model.addAttribute(ERROR_LABEL, "Staff has already existed");
         } else {
             staff.setPassword(passwordService.encodePassword(staff.getPassword()));

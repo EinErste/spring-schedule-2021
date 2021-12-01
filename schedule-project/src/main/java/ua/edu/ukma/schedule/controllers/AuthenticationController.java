@@ -47,7 +47,7 @@ public class AuthenticationController {
 
         Optional<User> foundUserOptional = userService.findUserByEmail(user.getEmail());
         User foundUser;
-        if (foundUserOptional.isEmpty()) {
+        if (!foundUserOptional.isPresent()) {
             model.addAttribute(ERROR_LABEL, "User doesn't exists");
             return LOGIN_LABEL;
         } else {

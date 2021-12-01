@@ -18,6 +18,7 @@ import ua.edu.ukma.schedule.services.LessonService;
 import ua.edu.ukma.schedule.services.StudentService;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -56,7 +57,7 @@ public class StudentServiceImpl extends AbstractCRUDService<Student> implements 
     }
     @Override
     public Student save(Student user){
-        user.setPermissions(List.of(permissionRepository.findByPermission(Permissions.PermissionName.STUDENT)));
+        user.setPermissions(Arrays.asList(permissionRepository.findByPermission(Permissions.PermissionName.STUDENT)));
         return super.save(user);
     }
 
