@@ -5,14 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ua.edu.ukma.schedule.model.Permissions;
 import ua.edu.ukma.schedule.model.User;
-import ua.edu.ukma.schedule.repositories.PermissionRepository;
 import ua.edu.ukma.schedule.repositories.UserRepository;
 import ua.edu.ukma.schedule.services.UserService;
 
-import java.security.Permission;
-import java.util.List;
 import java.util.Optional;
 
 @Service
