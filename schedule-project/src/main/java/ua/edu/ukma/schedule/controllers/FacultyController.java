@@ -41,6 +41,8 @@ public class FacultyController {
             description = "Get a faculty with given id"
     )
     @GetMapping(value = "/{id}")
+    @LogExecutionTime
+    @LogParams
     public CustomResponse<Faculty> read(@PathVariable(value = "id") @Parameter(description = "Faculty id") Long id) {
         return CustomResponse.of(service.getById(id));
     }

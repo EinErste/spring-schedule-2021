@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public abstract class CustomException extends Exception {
+public abstract class CustomException extends RuntimeException {
 
     private final int code;
 
