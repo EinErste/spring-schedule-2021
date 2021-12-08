@@ -41,7 +41,6 @@ public class ScheduleAndCacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        // configure and return an implementation of Spring's CacheManager SPI
         MyCacheManager cacheManager = new MyCacheManager();
         cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("username")));
         return cacheManager;

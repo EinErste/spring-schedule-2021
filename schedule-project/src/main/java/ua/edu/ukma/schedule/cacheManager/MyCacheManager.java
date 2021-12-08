@@ -71,22 +71,6 @@ public class MyCacheManager implements CacheManager, InitializingBean {
         return this.cacheNames;
     }
 
-//    @Nullable
-//    protected final Cache lookupCache(String name) {
-//        return (Cache)this.cacheMap.get(name);
-//    }
-
-//    /** @deprecated */
-//    @Deprecated
-//    protected final void addCache(Cache cache) {
-//        String name = cache.getName();
-//        synchronized(this.cacheMap) {
-//            if (this.cacheMap.put(name, this.decorateCache(cache)) == null) {
-//                this.updateCacheNames(name);
-//            }
-//
-//        }
-//    }
 
     private void updateCacheNames(String name) {
         Set<String> cacheNames = new LinkedHashSet(this.cacheNames);
