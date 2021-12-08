@@ -28,7 +28,7 @@ public class UserServiceImpl extends AbstractCRUDService<User> implements UserSe
     }
 
     @Override
-    @CachePut(cacheNames = "username")
+    @Cacheable(cacheNames = "username")
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("No user with email: " + username));
