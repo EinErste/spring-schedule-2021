@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/h2-console/**", "/css/**", "/").permitAll()
                 .antMatchers(GET, FACULTY_API, LESSON_API, COURSE_API, STAFF_API, STUDENT_API).permitAll()
                 .antMatchers(POST, FACULTY_API, LESSON_API, STAFF_API, STUDENT_API).hasAnyAuthority(ADMIN.name(), METHODIST.name())
-                .antMatchers("/addStaff", "/addStaff-processing")
+                .antMatchers("/addStaff", "/addStaff-processing", "/users*")
                 .hasAuthority(ADMIN.name())
                 .antMatchers(POST, "/api/lesson/*/*")
                 .hasAuthority(STUDENT.name())

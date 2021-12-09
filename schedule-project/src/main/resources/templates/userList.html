@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>User List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="../static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<style>
+    #searchForm {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    #search-input {
+        vertical-align: middle;
+        margin: 5px 10px 5px 0;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        min-width: 80%;
+    }
+
+    .search-form-button {
+        padding: 10px 20px;
+        margin: 10px;
+        cursor: pointer;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<div th:replace="fragments/navbar.html :: navigation"></div>
+<body>
+
+<div class="col-md-12 m-3">
+    <form id="searchForm">
+        <input id="search-input" name="search" placeholder="Enter name, email or role" th:value="${query}" required type="text"/>
+        <button type="submit" class="btn btn-success search-form-button" id="searchButton">Search</button>
+        <button type="reset" class="btn btn-danger search-form-button" id="resetButton" onclick="window.location.href='http://localhost:8080/users'">Reset</button>
+    </form>
+</div>
+
+
+<div class="container m-3">
+    <h3>User List</h3>
+</div>
+
+<div class="container m-3" id="usersTable">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <th>NAME</th>
+        <th>EMAIL</th>
+        <th>ROLE</th>
+        </thead>
+        <tbody id="booksBody">
+        <tr th:each="user: ${users}">
+            <td><a th:href="@{'/users/' + ${user.id}}" th:text="${user.name} + ' ' + ${user.surname}"></a></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.permissions.get(0).permission}"></td>
+            <td><a th:href="@{'/users/edit/' + ${user.id}}" th:text="Edit"></a> | <a
+                    th:href="@{'/users/delete/' + ${user.id}}" th:text="Delete"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div id="pages" class="d-flex align-items-center justify-content-center"></div>
+</div>
+<script>
+    $('#searchForm').submit((e)=>{e.preventDefault();window.location.href='http://localhost:8080/users?query='+document.getElementById("search-input").value});
+</script>
+</body>
+</html>

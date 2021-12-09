@@ -11,6 +11,9 @@
             <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="/addStaff" th:text="#{login.addStaff}"></a>
             </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="/users" th:text="#{navbar.users}"></a>
+            </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
