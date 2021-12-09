@@ -1,5 +1,6 @@
 package ua.edu.ukma.schedule.config;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -19,24 +20,25 @@ import java.util.Date;
 @Configuration
 @EnableScheduling
 @EnableCaching
+@Log4j2
 public class ScheduleAndCacheConfig {
     @Autowired
     private UserServiceImpl userService;
 
     @Scheduled(fixedRate = 10000)
     public void schedulePrintUsersCount() {
-        System.out.println("Users count on "+new Date().toString() +" = " +userService.count());
+        log.debug("Users count on "+new Date().toString() +" = " +userService.count());
     }
 
     @Scheduled(cron = "0 * * * * *") //second, minute, hour, day of month, month, day(s) of week
     @CacheEvict(value="username", allEntries = true)
     public void scheduleUsingCron() {
-        System.out.println("Username cache removed");
+        log.debug("Username cache removed");
     }
 
     @Scheduled(fixedRate = 10000)
     public void schedulePrintUsersCount2() {
-        System.out.println("Logined users: "+cacheManager().getCache("username").getNativeCache().toString());
+        log.debug("Logined users: "+cacheManager().getCache("username").getNativeCache().toString());
     }
 
     @Bean

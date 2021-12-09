@@ -1,6 +1,7 @@
 package ua.edu.ukma.schedule.config;
 
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -11,33 +12,34 @@ import ua.edu.ukma.schedule.model.Faculty;
 import ua.edu.ukma.schedule.services.impl.CourseServiceImpl;
 
 @Configuration
+@Log4j2
 public class TestConfigClass {
     @Bean
     @ConditionalOnProperty(value = "my.test.property", havingValue = "exist", matchIfMissing = true)
     public void printPropertyExist(){
-        System.out.println("Conditional on property exists");
+        log.trace("Conditional on property exists");
     }
     @Bean
     @ConditionalOnProperty(value = "my.test.property", havingValue = "hide")
     public void printPropertyHide(){
-        System.out.println("Conditional on property value is hide");
+        log.trace("Conditional on property value is hide");
     }
 
     @Bean
     @ConditionalOnClass(Faculty.class)
     public void classConditional(){
-        System.out.println("FacultyEntity is present");
+        log.trace("FacultyEntity is present");
     }
 
     @Bean
     @ConditionalOnBean(CourseServiceImpl.class)
     void printBean(){
-        System.out.println("CourseServiceImpl bean is present");
+        log.trace("CourseServiceImpl bean is present");
     }
 
     @Bean
     @ConditionalOnMissingBean(CourseServiceImpl.class)
     void printNoBean(){
-        System.out.println("CourseServiceImpl bean is not present");
+        log.trace("CourseServiceImpl bean is not present");
     }
 }

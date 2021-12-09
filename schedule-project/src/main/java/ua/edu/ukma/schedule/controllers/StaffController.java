@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
+import ua.edu.ukma.schedule.annotation.LogParams;
 import ua.edu.ukma.schedule.model.Staff;
 import ua.edu.ukma.schedule.model.User;
 import ua.edu.ukma.schedule.services.StaffService;
@@ -31,6 +32,7 @@ public class StaffController {
 
     @Operation(summary = "Get a staff member", description = "Gets a staff member with given id")
     @GetMapping(value = "/{id}")
+    @LogParams
     public CustomResponse<Staff> read(@PathVariable(value = "id") @Parameter(description = "Staff id") Long id) {
         return CustomResponse.of(service.getById(id));
     }
