@@ -47,7 +47,7 @@ public class AuthenticationController {
         }
 
         if (!passwordService.compareRawAndEncodedPassword(user.getPassword(), (foundUser.getPassword()))) {
-            model.addAttribute(ERROR_LABEL, "Wrong password");
+            model.addAttribute(ERROR_LABEL, "Wrong login or password");
             return LOGIN_LABEL;
         }
 

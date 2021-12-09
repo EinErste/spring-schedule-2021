@@ -11,7 +11,13 @@
             <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="/addStaff" th:text="#{login.addStaff}"></a>
             </li>
+            <li class="nav-item" sec:authorize="hasAuthority('STUDENT')">
+                <a class="nav-link" href="/student-schedule" th:text="#{menu.header.student.schedule }"></a>
+            </li>
         </ul>
+
+
+        <a class="nav-link" href="/student-schedule" th:text="#{menu.header.student.schedule }"></a>
 
         <ul class="nav navbar-nav navbar-right">
             <li sec:authorize="!isAuthenticated()">

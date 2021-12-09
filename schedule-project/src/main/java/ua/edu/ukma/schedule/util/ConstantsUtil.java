@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConstantsUtil {
 
+    public static final String STUDENT_SCHEDULE_LABEL = "studentSchedule";
     public static final String ERROR_LABEL = "error";
     public static final String ADD_STAFF_LABEL = "addStaff";
     public static final String SUCCESS_LABEL = "success";
