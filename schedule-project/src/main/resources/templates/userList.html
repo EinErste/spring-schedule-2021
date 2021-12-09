@@ -61,7 +61,7 @@
             <td th:text="${user.email}"></td>
             <td th:text="${user.permissions.get(0).permission}"></td>
             <td><a th:href="@{'/users/edit/' + ${user.id}}" th:text="Edit"></a> | <a
-                    th:href="@{'/users/delete/' + ${user.id}}" th:text="Delete"></a></td>
+                    th:attr="onclick=|remove('${user.id}')|" th:text="Delete"></a></td>
         </tr>
         </tbody>
     </table>
@@ -69,6 +69,18 @@
 </div>
 <script>
     $('#searchForm').submit((e)=>{e.preventDefault();window.location.href='http://localhost:8080/users?query='+document.getElementById("search-input").value});
+    function remove(id){
+        $.ajax({
+            type: 'DELETE',
+            url: '/users/'+id,
+            success: function (data){
+                if(!data.result)
+                    alert('You can not remove yourselves!')
+                else
+                    window.location.reload();
+            }
+        });
+    }
 </script>
 </body>
 </html>
