@@ -38,7 +38,9 @@ public class StudentController {
     )
     @GetMapping(value = "/{id}")
     public CustomResponse<Student> read(@PathVariable(value = "id") @Parameter(description = "Student id") Long id) {
-        return CustomResponse.of(studentService.getById(id));
+        Student student = studentService.getById(id);
+        student.resolveRecursion();
+        return CustomResponse.of(student);
     }
 
     @Operation(
