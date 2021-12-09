@@ -30,8 +30,6 @@ class UserServiceImplTest {
     private UserServiceImpl service;
 
     @Test
-    @LogParams
-    @LogExecutionTime
     void findByEmailExists() {
         User expected = new User(1, "John", "Doe", "johndoe@gmail.com", "1234", new LinkedList<>());
         when(repository.findUserByEmail("johndoe@gmail.com")).thenReturn(of(expected));

@@ -1,11 +1,16 @@
 package ua.edu.ukma.schedule.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 
 @Table(name = "lesson")
 @Entity
@@ -17,11 +22,17 @@ public class Lesson {
 
     @Id
     @GeneratedValue
+    @JsonProperty(access = READ_ONLY)
     private long id;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
+    @JsonIgnore
     private Course course;
+
+    @Transient
+    @JsonProperty(value = "course_id", access = READ_ONLY)
+    private long courseID;
 
     @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
@@ -30,18 +41,19 @@ public class Lesson {
     @Column(name = "lesson_group")
     private int group;
 
-    @Column(name = "type")
+    @Column(name = "lesson_type")
     @Enumerated(EnumType.STRING)
     private LessonType type;
 
     //recurring by week day and time
-    @Column(name = "time")
+    @Column(name = "lesson_time")
     private LocalDateTime time;
 
     @Column(name = "weeks")
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private String weeks;
+
 
     public List<Integer> getWeeks() {
         List<Integer> parsedWeeks = new ArrayList<>();

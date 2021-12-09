@@ -38,7 +38,9 @@ public class LessonController {
     @Operation(summary = "Get a lesson", description = "Get a lesson with given id")
     @GetMapping(value = "/{id}")
     public CustomResponse<Lesson> read(@PathVariable(value = "id") @Parameter(description = "Lesson id") Long id) {
-        return CustomResponse.of(service.getById(id));
+        Lesson lesson = service.getById(id);
+        lesson.setCourseID(lesson.getCourse().getId());
+        return CustomResponse.of(lesson);
     }
 
     @Operation(summary = "Update a lesson", description = "Lets you update a lesson")

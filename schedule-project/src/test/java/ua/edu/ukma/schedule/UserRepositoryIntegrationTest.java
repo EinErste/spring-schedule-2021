@@ -1,12 +1,9 @@
 package ua.edu.ukma.schedule;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
-import ua.edu.ukma.schedule.annotation.LogExecutionTime;
 import ua.edu.ukma.schedule.model.User;
 import ua.edu.ukma.schedule.repositories.UserRepository;
 
@@ -16,7 +13,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(SpringRunner.class)
 @DataJpaTest
 class UserRepositoryIntegrationTest {
 

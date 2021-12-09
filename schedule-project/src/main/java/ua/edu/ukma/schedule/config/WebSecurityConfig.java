@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
                 .antMatchers("/resources/**", "/h2-console/**", "/css/**", "/").permitAll()
-                .antMatchers(GET, FACULTY_API, LESSON_API, STAFF_API, STUDENT_API).permitAll()
+                .antMatchers(GET, FACULTY_API, LESSON_API, COURSE_API, STAFF_API, STUDENT_API).permitAll()
                 .antMatchers(POST, FACULTY_API, LESSON_API, STAFF_API, STUDENT_API).hasAnyAuthority(ADMIN.name(), METHODIST.name())
                 .antMatchers("/addStaff", "/addStaff-processing")
                 .hasAuthority(ADMIN.name())

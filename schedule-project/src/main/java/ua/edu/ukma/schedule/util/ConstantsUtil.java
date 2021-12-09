@@ -12,6 +12,7 @@ public class ConstantsUtil {
     public static final String SIGNUP_LABEL = "signup";
     public static final String FACULTY_API = "/api/faculty/*";
     public static final String LESSON_API = "/api/lesson/*";
+    public static final String COURSE_API = "/api/course/*";
     public static final String STAFF_API = "/api/staff/*";
     public static final String STUDENT_API = "/api/student/*";
 }
