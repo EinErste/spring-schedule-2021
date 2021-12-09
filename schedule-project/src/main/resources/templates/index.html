@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Scheduler</title>
@@ -7,18 +7,35 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css" media="all"/>
     <link href="../static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../static/css/schedule.css" th:href="@{/css/schedule.css}" rel="stylesheet" type="text/css" media="all"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <div th:replace="fragments/navbar.html :: navigation"></div>
 <body>
-<div sec:authorize="hasAuthority('STUDENT')" class="custom-form">
-    <p th:text="#{index.student}"></p>
-</div>
-<div sec:authorize="hasAuthority('METHODIST')" class="custom-form">
-    <p th:text="#{index.methodist}"></p>
-</div>
-<div sec:authorize="hasAuthority('ADMIN')" class="custom-form">
-    <p th:text="#{index.admin}"></p>
+<div>
+    <table class="table">
+        <thead class="thead">
+        <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Teacher Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Weeks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td class="day-of-week-header" colspan="5">Monday</td></tr>
+        <tr th:replace="fragments/schedule-day.html :: schedule-day(lessons=${schedule.monday})"></tr>
+        <tr><td class="day-of-week-header" colspan="5">Tuesday</td></tr>
+        <tr th:replace="fragments/schedule-day.html :: schedule-day(lessons=${schedule.tuesday})"></tr>
+        <tr><td class="day-of-week-header" colspan="5">Wednesday</td></tr>
+        <tr th:replace="fragments/schedule-day.html :: schedule-day(lessons=${schedule.wednesday})"></tr>
+        <tr><td class="day-of-week-header" colspan="5">Thursday</td></tr>
+        <tr th:replace="fragments/schedule-day.html :: schedule-day(lessons=${schedule.thursday})"></tr>
+        <tr><td class="day-of-week-header" colspan="5">Friday</td></tr>
+        <tr th:replace="fragments/schedule-day.html :: schedule-day(lessons=${schedule.friday})"></tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

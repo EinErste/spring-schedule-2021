@@ -27,7 +27,7 @@ public class Lesson {
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
-    @JsonIgnore
+    @ToString.Exclude
     private Course course;
 
     @Transient

@@ -1,0 +1,9 @@
+
+.thead {
+    background-color: lavender;
+}
+.day-of-week-header {
+    font-weight: bold;
+    text-align: center;
+    background-color: #f3f3ff;
+}
