@@ -17,17 +17,17 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 public class ExceptionHandlerController {
 
     @ExceptionHandler(Exception.class)
-    public CustomResponse handle(Exception e) {
+    public CustomResponse<CustomResponseError> handle(Exception e) {
         return CustomResponse.of(new CustomResponseError(INTERNAL_SERVER_ERROR.value(), INTERNAL_SERVER_ERROR.getReasonPhrase()));
     }
 
     @ExceptionHandler(CustomException.class)
-    public CustomResponse handle(CustomException e) {
+    public CustomResponse<CustomResponseError> handle(CustomException e) {
         return CustomResponse.of(new CustomResponseError(e.getCode(), e.getMessage()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public CustomResponse handle(EntityNotFoundException e) {
+    public CustomResponse<CustomResponseError> handle(EntityNotFoundException e) {
         log.debug("Specific custom exception");
         return CustomResponse.of(new CustomResponseError(e.getCode(), e.getMessage()));
     }

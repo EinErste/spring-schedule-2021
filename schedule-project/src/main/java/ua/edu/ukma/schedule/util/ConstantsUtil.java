@@ -1,9 +1,10 @@
 package ua.edu.ukma.schedule.util;
 
-public class ConstantsUtil {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-    private ConstantsUtil() {
-    }
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ConstantsUtil {
 
     public static final String ERROR_LABEL = "error";
     public static final String ADD_STAFF_LABEL = "addStaff";

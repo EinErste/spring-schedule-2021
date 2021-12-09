@@ -5,11 +5,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.schedule.annotation.LogExecutionTime;
 import ua.edu.ukma.schedule.model.Course;
-import ua.edu.ukma.schedule.services.CourseService;
 import ua.edu.ukma.schedule.services.CourseService;
 import ua.edu.ukma.schedule.util.CustomResponse;
 
@@ -29,8 +27,8 @@ public class CourseController {
             description = "Let add a new Course"
     )
     @PostMapping(value = "/")
-    public CustomResponse<Long> create(@RequestBody @Valid Course Course) {
-        return CustomResponse.of(service.save(Course).getId());
+    public CustomResponse<Long> create(@RequestBody @Valid Course course) {
+        return CustomResponse.of(service.save(course).getId());
     }
 
     @Operation(
@@ -48,8 +46,8 @@ public class CourseController {
             description = "Let update a Course"
     )
     @PutMapping(value = "/")
-    public CustomResponse<Boolean> update(@RequestBody @Valid Course Course) {
-        service.save(Course);
+    public CustomResponse<Boolean> update(@RequestBody @Valid Course course) {
+        service.save(course);
         return CustomResponse.of(true);
     }
 

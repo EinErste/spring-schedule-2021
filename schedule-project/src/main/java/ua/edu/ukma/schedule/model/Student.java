@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "student")
 @Entity
 @Data
