@@ -23,7 +23,6 @@ import javax.validation.Valid;
 public class CourseController {
 
     private final CourseService service;
-    
 
     @Operation(
             summary = "Add new Course",
