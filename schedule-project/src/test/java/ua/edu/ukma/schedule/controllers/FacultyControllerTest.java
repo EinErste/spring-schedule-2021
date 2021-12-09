@@ -34,7 +34,6 @@ class FacultyControllerTest {
     @MockBean
     private UserServiceImpl userService;
 
-
     @WithAnonymousUser
     @Test
     void whenAnonymousGetRequestSuccess() throws Exception {

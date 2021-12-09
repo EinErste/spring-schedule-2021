@@ -1,10 +1,10 @@
 package ua.edu.ukma.schedule.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConstantsUtil {
-
-
-    private ConstantsUtil() {
-    }
 
     public static final String STUDENT_SCHEDULE_LABEL = "studentSchedule";
     public static final String ERROR_LABEL = "error";

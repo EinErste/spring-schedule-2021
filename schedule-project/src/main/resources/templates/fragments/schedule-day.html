@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<tr th:fragment="schedule-day" th:each="lesson : ${lessons}">
+    <td class="align-middle"><span class="align-middle" th:text="${#temporals.format(lesson.time, 'HH:mm')}"></span></td>
+    <td class="align-middle"><span class="align-middle" th:text="${lesson.course.name}"></span></td>
+    <td class="align-middle">
+        <span class="align-middle" th:text="${lesson.staff.surname + ' ' + lesson.staff.name}"></span>
+    </td>
+    <td class="align-middle"><span class="align-middle" th:text="${lesson.type}"></span></td>
+    <td class="align-middle"><span class="align-middle" th:text="${lesson.weeks}"></span></td>
+</tr>
+
+</html>

@@ -1,7 +1,6 @@
 package ua.edu.ukma.schedule.model;
 
-
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
