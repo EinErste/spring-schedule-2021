@@ -8,7 +8,7 @@
             <a class="navbar-brand" href="/" th:text="#{menu.header}"></a>
         </div>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"  th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="/addStaff" th:text="#{login.addStaff}"></a>
             </li>
         </ul>
@@ -26,10 +26,4 @@
         </ul>
     </div>
 </nav>
-
-<script>
-    $(document).ready(function () {
-        $('.dropdown-toggle').dropdown();
-    });
-</script>
 </html>
