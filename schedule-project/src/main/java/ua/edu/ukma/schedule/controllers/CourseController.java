@@ -41,9 +41,7 @@ public class CourseController {
     @GetMapping(value = "/{id}")
     public CustomResponse<Course> read(@PathVariable(value = "id") @Parameter(description = "Course id") Long id) {
         Course course = service.getById(id);
-        for (Lesson lesson: course.getLessons()) {
-            lesson.setCourse(null);
-        }
+        course.resolveRecursion();
         return CustomResponse.of(course);
     }
 

@@ -74,4 +74,8 @@ public class Lesson {
         }
         this.weeks = newWeeks;
     }
+
+    public void resolveRecursion() {
+        course.setLessons(null);
+    }
 }

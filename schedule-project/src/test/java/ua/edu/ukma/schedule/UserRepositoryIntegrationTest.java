@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import ua.edu.ukma.schedule.model.User;
 import ua.edu.ukma.schedule.repositories.UserRepository;
+import ua.edu.ukma.schedule.services.PasswordService;
 
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ class UserRepositoryIntegrationTest {
     private TestEntityManager entityManager;
     @Autowired
     private UserRepository userRepository;
+
 
     @Test
     void whenFindByEmailAndUserExistsThenReturnUser() {
@@ -43,4 +45,6 @@ class UserRepositoryIntegrationTest {
         Optional<User> foundUser = userRepository.findUserByEmail("taisiia@example.com");
         assertFalse(foundUser.isPresent());
     }
+
+
 }

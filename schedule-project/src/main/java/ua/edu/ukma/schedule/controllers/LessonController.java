@@ -39,7 +39,7 @@ public class LessonController {
     @GetMapping(value = "/{id}")
     public CustomResponse<Lesson> read(@PathVariable(value = "id") @Parameter(description = "Lesson id") Long id) {
         Lesson lesson = service.getById(id);
-        lesson.getCourse().setLessons(null);
+        lesson.resolveRecursion();
         return CustomResponse.of(lesson);
     }
 

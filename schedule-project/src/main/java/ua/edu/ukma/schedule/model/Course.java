@@ -55,4 +55,9 @@ public class Course {
     //Add PROFESSIONAL and NORMATIVE. If course_id is not present, assume type FREE
     private Map<Long, CourseType> typeBySpeciality = new HashMap<>();
 
+    public void resolveRecursion(){
+        for (Lesson lesson: lessons) {
+            lesson.setCourse(null);
+        }
+    }
 }
