@@ -52,6 +52,7 @@ public class RegistrationController {
             return LOGIN_LABEL;
         }
     }
+
     @GetMapping("/addStaff")
     public String addStaff(Model model) {
         model.addAttribute("user", new Staff());
@@ -64,11 +65,12 @@ public class RegistrationController {
     public String signupStaff(@ModelAttribute Staff staff, Model model) {
         if (userService.findUserByEmail(staff.getEmail()).isPresent()) {
             model.addAttribute(ERROR_LABEL, "Staff has already existed");
+            return ADD_STAFF_LABEL;
         } else {
             staff.setPassword(passwordService.encodePassword(staff.getPassword()));
             model.addAttribute("user", staffService.save(staff));
             model.addAttribute(SUCCESS_LABEL, "Successfully registered");
         }
-        return ADD_STAFF_LABEL;
+        return REDIRECT_LABEL;
     }
 }
