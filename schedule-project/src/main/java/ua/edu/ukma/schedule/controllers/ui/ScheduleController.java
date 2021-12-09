@@ -35,6 +35,7 @@ public class ScheduleController {
         schedule.setThursday(lessons.stream().filter(e -> e.getTime().getDayOfWeek().equals(THURSDAY)).collect(toList()));
         schedule.setFriday(lessons.stream().filter(e -> e.getTime().getDayOfWeek().equals(FRIDAY)).collect(toList()));
         model.addAttribute("schedule", schedule);
+        model.addAttribute("lessons", lessons);
         return "index";
     }
 
