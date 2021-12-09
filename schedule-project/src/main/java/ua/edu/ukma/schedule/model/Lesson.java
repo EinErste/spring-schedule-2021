@@ -1,8 +1,7 @@
 package ua.edu.ukma.schedule.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,12 +26,9 @@ public class Lesson {
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
-    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Course course;
-
-    @Transient
-    @JsonProperty(value = "course_id", access = READ_ONLY)
-    private long courseID;
 
     @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
@@ -78,6 +74,4 @@ public class Lesson {
         }
         this.weeks = newWeeks;
     }
-
-
 }

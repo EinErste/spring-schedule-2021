@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.schedule.annotation.LogExecutionTime;
 import ua.edu.ukma.schedule.model.Course;
+import ua.edu.ukma.schedule.model.Lesson;
 import ua.edu.ukma.schedule.services.CourseService;
 import ua.edu.ukma.schedule.services.CourseService;
 import ua.edu.ukma.schedule.util.CustomResponse;
@@ -38,9 +39,12 @@ public class CourseController {
             description = "Get a Course with given id"
     )
     @GetMapping(value = "/{id}")
-    @LogExecutionTime
     public CustomResponse<Course> read(@PathVariable(value = "id") @Parameter(description = "Course id") Long id) {
-        return CustomResponse.of(service.getById(id));
+        Course course = service.getById(id);
+        for (Lesson lesson: course.getLessons()) {
+            lesson.setCourse(null);
+        }
+        return CustomResponse.of(course);
     }
 
     @Operation(

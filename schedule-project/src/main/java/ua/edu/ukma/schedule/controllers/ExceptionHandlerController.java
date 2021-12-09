@@ -18,6 +18,15 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(Exception.class)
     public CustomResponse handle(Exception e) {
+        log.error(e.getMessage());
+        e.printStackTrace();
+        return CustomResponse.of(new CustomResponseError(INTERNAL_SERVER_ERROR.value(), INTERNAL_SERVER_ERROR.getReasonPhrase()));
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public CustomResponse handle(RuntimeException e) {
+        log.error(e.getMessage());
+        e.printStackTrace();
         return CustomResponse.of(new CustomResponseError(INTERNAL_SERVER_ERROR.value(), INTERNAL_SERVER_ERROR.getReasonPhrase()));
     }
 
