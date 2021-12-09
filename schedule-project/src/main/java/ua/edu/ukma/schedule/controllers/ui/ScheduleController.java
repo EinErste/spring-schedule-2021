@@ -5,15 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ua.edu.ukma.schedule.model.Lesson;
-import ua.edu.ukma.schedule.model.Schedule;
 import ua.edu.ukma.schedule.services.LessonService;
 
 import java.time.DayOfWeek;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static java.time.DayOfWeek.*;
-import static java.util.stream.Collectors.toList;
 
 @Controller
 public class ScheduleController {
@@ -27,15 +26,16 @@ public class ScheduleController {
 
     @GetMapping("/")
     public String getMainPage(Model model) {
-        Collection<Lesson> lessons = lessonService.getAll();
-        Schedule schedule = new Schedule();
-        schedule.setMonday(lessons.stream().filter(e -> e.getTime().getDayOfWeek().equals(MONDAY)).collect(toList()));
-        schedule.setTuesday(lessons.stream().filter(e -> e.getTime().getDayOfWeek().equals(TUESDAY)).collect(toList()));
-        schedule.setWednesday(lessons.stream().filter(e -> e.getTime().getDayOfWeek().equals(WEDNESDAY)).collect(toList()));
-        schedule.setThursday(lessons.stream().filter(e -> e.getTime().getDayOfWeek().equals(THURSDAY)).collect(toList()));
-        schedule.setFriday(lessons.stream().filter(e -> e.getTime().getDayOfWeek().equals(FRIDAY)).collect(toList()));
+        List<Lesson> lessons = lessonService.getAllSortedByTime();
+
+        Map<DayOfWeek, List<Lesson>> schedule = new TreeMap<>();
+        schedule.put(MONDAY, lessonService.getLessonsForWeekDay(lessons, MONDAY));
+        schedule.put(TUESDAY, lessonService.getLessonsForWeekDay(lessons, TUESDAY));
+        schedule.put(WEDNESDAY, lessonService.getLessonsForWeekDay(lessons, WEDNESDAY));
+        schedule.put(THURSDAY, lessonService.getLessonsForWeekDay(lessons, THURSDAY));
+        schedule.put(FRIDAY, lessonService.getLessonsForWeekDay(lessons, FRIDAY));
+
         model.addAttribute("schedule", schedule);
-        model.addAttribute("lessons", lessons);
         return "index";
     }
 
