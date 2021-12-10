@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css" media="all"/>
+        <link href="../static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet" type="text/css" media="all"/>
+        <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all"/>
+    </head>
+    <body>
+
+        <div th:replace="fragments/navbar.html :: navigation"></div>
+        <div class="container w-100">
+            <div style="background-color: lavender;" class="container w-100 d-flex m-4 color flex-column" th:each="week: ${schedule.weeks}">
+                <div class="font-weight-bold h3 text-center" th:text="'WEEK ' + ${week.number}"></div>
+                <div style="background-color:  #f3f3ff;" class="container w-100 d-flex my-3 flex-column border-dark" th:each="day: ${week.days}">
+                    <div class="h5" th:text="${day.name}"></div>
+                    <div th:if="${day.lessons.size() == 0}"><i>Nothing today</i></div>
+                    <div th:each="lesson: ${day.lessons}">
+                        <span th:text="${lesson.course} + ' |' "></span>
+                        <span th:text="${lesson.time} + ' | '"></span>
+                        <span th:text="${lesson.type} + ' | '"></span>
+                        <span th:if="${lesson.group != 0}" th:text="'Group ' + ${lesson.group} + ' | '"></span>
+                        <span th:text="${lesson.staffName}"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

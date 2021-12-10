@@ -16,7 +16,8 @@ import java.util.Set;
 public class Faculty {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+    @SequenceGenerator(name = "id_generator", sequenceName = "id_seq_faculty", initialValue = 1, allocationSize = 1)
     private long id;
 
     @Column(name = "name")

@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "student")
 @Entity
 @Data
@@ -28,5 +29,13 @@ public class Student extends User {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id"))
     @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Lesson> lessons = new HashSet<>();
+
+    public void resolveRecursion() {
+        for (Lesson lesson : lessons) {
+            lesson.resolveRecursion();
+        }
+    }
 }

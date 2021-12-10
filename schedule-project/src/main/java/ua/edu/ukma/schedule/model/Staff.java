@@ -6,11 +6,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
-@Entity(name = "staff")
+@Entity
+@Table(name = "staff")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

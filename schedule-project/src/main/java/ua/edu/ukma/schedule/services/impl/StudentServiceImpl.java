@@ -6,20 +6,19 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.schedule.model.Lesson;
 import ua.edu.ukma.schedule.model.Permissions;
 import ua.edu.ukma.schedule.model.Student;
-import ua.edu.ukma.schedule.model.User;
 import ua.edu.ukma.schedule.repositories.PermissionRepository;
-import ua.edu.ukma.schedule.repositories.StudentRepository;
 import ua.edu.ukma.schedule.services.LessonService;
 import ua.edu.ukma.schedule.services.StudentService;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Arrays;
-import java.util.List;
+
+import static java.util.Collections.singletonList;
 
 @Service
 @Log4j2
@@ -29,7 +28,7 @@ public class StudentServiceImpl extends AbstractCRUDService<Student> implements 
     private static final Marker SHOW = MarkerManager.getMarker("SHOW");
 
     @Autowired
-    public StudentServiceImpl(StudentRepository repository, LessonService lessonService, PermissionRepository permissionsRepository) {
+    public StudentServiceImpl(JpaRepository<Student, Long> repository, LessonService lessonService, PermissionRepository permissionsRepository) {
         super(repository);
         this.lessonService = lessonService;
         this.permissionRepository = permissionsRepository;
@@ -47,18 +46,18 @@ public class StudentServiceImpl extends AbstractCRUDService<Student> implements 
             log.info(SHOW, "Lesson with id {} was added to student with id {}", lessonId, studentId);
             ThreadContext.clearAll();
             return repository.save(student);
-        }catch (EntityNotFoundException e){
-            log.error(SHOW,e.getMessage());
+        } catch (EntityNotFoundException e) {
+            log.error(SHOW, e.getMessage());
             ThreadContext.clearAll();
-            //throw e;
         }
         return null;
 
     }
+
     @Override
-    public Student save(Student user){
-        user.setPermissions(Arrays.asList(permissionRepository.findByPermission(Permissions.PermissionName.STUDENT)));
-        return super.save(user);
+    public Student save(Student user) {
+        user.setPermissions(singletonList(permissionRepository.findByPermission(Permissions.PermissionName.STUDENT)));
+        return repository.save(user);
     }
 
     @Override

@@ -1,8 +1,10 @@
 package ua.edu.ukma.schedule.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -14,7 +16,8 @@ import javax.persistence.*;
 public class Speciality {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+    @SequenceGenerator(name = "id_generator", sequenceName = "id_seq_speciality", initialValue = 4, allocationSize = 1)
     private long id;
 
     @Column(name = "name")
