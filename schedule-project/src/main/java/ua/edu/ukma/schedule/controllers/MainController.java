@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ua.edu.ukma.schedule.model.Staff;
 import ua.edu.ukma.schedule.model.Student;
+import ua.edu.ukma.schedule.model.util.WeekSchedule;
 import ua.edu.ukma.schedule.services.PasswordService;
 import ua.edu.ukma.schedule.services.StaffService;
 import ua.edu.ukma.schedule.services.StudentService;
@@ -43,8 +44,7 @@ public class MainController {
 
         if(wrapped.isPresent()){
             Student student = studentService.getById(wrapped.get().getId());
-            log.error(student.getLessons());
-            model.addAttribute("lessons",student.getLessons());
+            model.addAttribute("schedule", WeekSchedule.convert(student.getLessons()));
             return STUDENT_SCHEDULE_LABEL;
         } else {
             return "redirect:/";

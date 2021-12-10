@@ -11,12 +11,24 @@
         <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all"/>
     </head>
     <body>
+
         <div th:replace="fragments/navbar.html :: navigation"></div>
-        <div class="container d-flex m-4 justify-content-center align-items-center">
-            <tr th:each="lesson: ${lessons}">
-                <td th:text="${lesson.id}" />
-                <td th:text="${lesson.course.name}" />
-            </tr>
+        <div class="container w-100">
+            <div style="background-color: lavender;" class="container w-100 d-flex m-4 color flex-column" th:each="week: ${schedule.weeks}">
+                <div class="font-weight-bold h3 text-center" th:text="'WEEK ' + ${week.number}"></div>
+                <div style="background-color:  #f3f3ff;" class="container w-100 d-flex my-3 flex-column border-dark" th:each="day: ${week.days}">
+                    <div class="h5" th:text="${day.name}"></div>
+                    <div th:if="${day.lessons.size() == 0}"><i>Nothing today</i></div>
+                    <div th:each="lesson: ${day.lessons}">
+                        <span th:text="${lesson.course} + ' |' "></span>
+                        <span th:text="${lesson.time} + ' | '"></span>
+                        <span th:text="${lesson.type} + ' | '"></span>
+                        <span th:if="${lesson.group != 0}" th:text="'Group ' + ${lesson.group} + ' | '"></span>
+                        <span th:text="${lesson.staffName}"></span>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </body>
 </html>
