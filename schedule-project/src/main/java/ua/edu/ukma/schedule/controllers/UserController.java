@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.schedule.model.*;
 import ua.edu.ukma.schedule.services.UserService;
 
+import java.util.ArrayList;
+
 import static ua.edu.ukma.schedule.util.ConstantsUtil.*;
 
 @Controller
@@ -82,5 +84,21 @@ public class UserController {
         model.addAttribute(SUCCESS_LABEL, "User edited successfully");
         return REDIRECT_LABEL;
     }
+//
+    @GetMapping("/users/changeRole/{id}")
+    public String changeRole(Model model, @PathVariable Long id) {
+        User user = userService.getById(id);
+        if(user.getPermissions().get(0).getPermission().equals(Permissions.PermissionName.STUDENT)){
+            user.getPermissions().get(0).setPermission(Permissions.PermissionName.METHODIST);
+
+        }
+        else
+            user.getPermissions().get(0).setPermission(Permissions.PermissionName.STUDENT);
+
+        model.addAttribute("user", userService.editUser(user));
+        model.addAttribute(SUCCESS_LABEL, "Role changed successfully");
+        return REDIRECT_LABEL;
+    }
+
 
 }

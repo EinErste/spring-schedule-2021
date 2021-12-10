@@ -59,10 +59,11 @@
         <tr th:each="user: ${users}">
             <td><a th:href="@{'/users/' + ${user.id}}" th:text="${user.name} + ' ' + ${user.surname}"></a></td>
             <td th:text="${user.email}"></td>
-            <td th:text="${user.permissions.get(0).permission}"></td>
-            <td><a th:href="@{'/users/edit/' + ${user.id}}" th:text="Edit"></a> | <a
-                    th:attr="onclick=|remove('${user.id}')|" th:text="Delete"></a> | <a
-                    th:href="@{'/users/edit/' + ${user.id}}" th:text="ChangeRole"></a></td>
+            <td th:text="${user.permissions.get(0).getAuthority()}"></td>
+            <td th:unless="${user.permissions.get(0).getAuthority() == 'ADMIN'}"><a th:href="@{'/users/edit/' + ${user.id}}" th:text="Edit"></a> | <a
+                    th:attr="onclick=|remove('${user.id}')|" th:text="Delete"></a> </td>
+<!--            INSERT AFTER DELETE BUTTON-->
+<!--            | <a th:href="@{'/users/changeRole/' + ${user.id}}" th:text="ChangeRole"></a>-->
         </tr>
         </tbody>
     </table>
