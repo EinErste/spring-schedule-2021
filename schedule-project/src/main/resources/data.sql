@@ -7,15 +7,17 @@ INSERT INTO speciality (ID, NAME, CODE, FACULTY_ID) values
 
 
 INSERT INTO course (id, name, course_year, hours, credits, max_groups, season) values
-(1, 'ООП та патерни', 2, 30, 4, 6, 'FALL');
+(1, 'ООП та патерни програмування', 2, 30, 4, 6, 'FALL');
 
+INSERT INTO app_user(id, name, surname, email, password) values
+(1, 'Олег', 'Винник', 'olegvynnyk@gmail.com', '$2a$10$3r4urWJ3x6U82.yJlJlng.idqxbkRfFBf4oswegaiC.DRH5NJ1Bea'),
+(2, 'Mr', 'Student', 'student@gmail.com', '$2a$10$SDAdOcIIKeDov/vie3igSOJSTNVWMWR14unvfKT0TRylP08W4l58C');
 
+INSERT INTO staff(id, position ) values
+(1, 'Викладач');
 
-INSERT INTO staff(id, name, surname, email, password, position ) values
-(1, 'Олег', 'Винник', 'olegvynnyk@gmail.com', '$2a$10$3r4urWJ3x6U82.yJlJlng.idqxbkRfFBf4oswegaiC.DRH5NJ1Bea', 'Викладач');
-
-INSERT INTO student(id, name, surname, email, password, student_year) values
-(2, 'Mr', 'Student', 'student@gmail.com', '$2a$10$SDAdOcIIKeDov/vie3igSOJSTNVWMWR14unvfKT0TRylP08W4l58C', 2);
+INSERT INTO student(id, student_year) values
+(2, 2);
 
 
 INSERT INTO permissions(id, permission) values
@@ -24,10 +26,8 @@ INSERT INTO permissions(id, permission) values
 (3, 'ADMIN');
 
 INSERT INTO user_permissions(user_id, permission_id) values
-(1, 3);
-
-INSERT INTO user_permissions(user_id, permission_id) values
-    (2, 1);
+(1, 3),
+(2, 1);
 
 INSERT INTO lesson (id, course_id, staff_id, lesson_group, lesson_type, lesson_time, weeks) values
 (1, 1, 1, 0, 'LECTURE', '2021-12-06 16:00:00.000', '1,2,3,4,5,6,7,8,9'),

@@ -19,7 +19,8 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 public class Lesson {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+    @SequenceGenerator(name = "id_generator", sequenceName = "id_seq_lesson", initialValue = 7, allocationSize = 1)
     @JsonProperty(access = READ_ONLY)
     private long id;
 
