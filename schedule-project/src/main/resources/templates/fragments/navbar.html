@@ -17,6 +17,9 @@
             <li class="nav-item" sec:authorize="hasAuthority('STUDENT')">
                 <a style="color: wheat; text-decoration: none;" class="nav-link" href="/student-schedule" th:text="#{menu.header.student.schedule }"></a>
             </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="/users" th:text="#{navbar.users}"></a>
+            </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">

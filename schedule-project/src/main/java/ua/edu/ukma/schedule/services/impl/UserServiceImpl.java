@@ -10,7 +10,10 @@ import ua.edu.ukma.schedule.model.User;
 import ua.edu.ukma.schedule.repositories.UserRepository;
 import ua.edu.ukma.schedule.services.UserService;
 
+import java.util.Collection;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends AbstractCRUDService<User> implements UserService, UserDetailsService {
@@ -21,6 +24,18 @@ public class UserServiceImpl extends AbstractCRUDService<User> implements UserSe
 
     public Optional<User> findUserByEmail(String email) {
         return getRepository().findUserByEmail(email);
+    }
+
+    @Override
+    public Collection<User> getSearched(final String query) {
+        String preparedQuery = query.toLowerCase(Locale.getDefault());
+        return getRepository()
+                .findAll()
+                .stream()
+                .filter(user -> user.getEmail().toLowerCase().contains(preparedQuery) || user.getEmail().toLowerCase().contains(preparedQuery)
+                || user.getName().toLowerCase().contains(preparedQuery) || user.getSurname().toLowerCase().contains(preparedQuery)
+                || user.getPermissions().stream().anyMatch(p->p.getPermission().toString().toLowerCase().contains(preparedQuery)))
+                .collect(Collectors.toList());
     }
 
     @Override
