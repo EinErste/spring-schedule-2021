@@ -21,7 +21,8 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 public class Course {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_generator")
+    @SequenceGenerator(name = "id_generator", sequenceName = "id_seq", initialValue = 2, allocationSize = 1)
     private long id;
 
     @Column(name = "name")
