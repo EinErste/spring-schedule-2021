@@ -24,16 +24,11 @@ import static ua.edu.ukma.schedule.util.ConstantsUtil.*;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-public class MainController {
+public class StudentScheduleController {
 
     private final UserService userService;
 
     private final StudentService studentService;
-
-    @GetMapping("/index")
-    public String login() {
-        return INDEX_LABEL;
-    }
 
     @GetMapping("/student-schedule")
     public String studentSchedule(Model model) {
