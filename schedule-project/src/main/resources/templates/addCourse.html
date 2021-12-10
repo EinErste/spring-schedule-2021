@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Add course</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<div th:replace="fragments/navbar.html :: navigation"></div>
+<body>
+<div class="custom-form">
+    <form th:action="@{/addCourse-processing}" th:object="${course}" method="post">
+        <h2 class="text-center" th:text="#{admin.addCourse}"></h2>
+
+        <div class="form-group">
+            <label for="name" hidden></label>
+            <input id="name" type="text" class="form-control" th:placeholder="#{addCourse.name}" th:field="*{name}"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <label for="courseYear">Course year</label>
+            <select id="courseYear" th:field="*{year}">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">4</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="hours">Hours</label>
+            <input id="hours" type="number" class="form-control" th:placeholder="#{addCourse.hours}" th:field="*{hours}"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <label for="credits">Credits</label>
+            <input id="credits" type="number" class="form-control" th:placeholder="#{addCourse.credits}" th:field="*{credits}"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <label for="maxGroups">Max groups</label>
+            <input id="maxGroups" class="form-control" th:placeholder="#{addCourse.maxGroups}" type="number" th:field="*{maxGroups}"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <label for="season">Season</label>
+            <select id="season" th:field="*{season}">
+                <option selected value="FALL">FALL</option>
+                <option value="WINTER">WINTER</option>
+                <option value="SPRING">SPRING</option>
+                <option value="SUMMER">SUMMER</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" th:text="#{admin.add}"></button>
+        </div>
+    </form>
+    <div class="errors-div" th:if="${error != null}">
+        <div class="alert alert-danger" role="alert" th:text="${error}">
+        </div>
+    </div>
+</div>
+</body>
+</html>

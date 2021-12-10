@@ -19,4 +19,7 @@ public class ConstantsUtil {
     public static final String COURSE_API = "/api/course/*";
     public static final String STAFF_API = "/api/staff/*";
     public static final String STUDENT_API = "/api/student/*";
+    public static final String ADD_COURSE_LABEL = "addCourse";
+
+
 }

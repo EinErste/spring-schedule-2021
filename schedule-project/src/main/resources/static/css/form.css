@@ -16,9 +16,15 @@
     margin: 0 0 15px;
 }
 
-.form-control, .btn {
+.form-control, .btn{
     min-height: 38px;
     border-radius: 2px;
+}
+
+select{
+    min-height: 38px;
+    border-radius: 2px;
+    width: 100%;
 }
 
 .btn {
