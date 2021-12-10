@@ -26,6 +26,9 @@ INSERT INTO permissions(id, permission) values
 INSERT INTO user_permissions(user_id, permission_id) values
 (1, 3);
 
+INSERT INTO user_permissions(user_id, permission_id) values
+    (2, 1);
+
 INSERT INTO lesson (id, course_id, staff_id, lesson_group, lesson_type, lesson_time, weeks) values
 (1, 1, 1, 0, 'LECTURE', '2021-12-06 16:00:00.000', '1,2,3,4,5,6,7,8,9'),
 (2, 1, 1, 1, 'PRACTICE',  '2021-12-07 10:00:00.000', '1,2,3,4,5,6,7,8,9'),
