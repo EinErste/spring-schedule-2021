@@ -2,6 +2,7 @@ package ua.edu.ukma.schedule.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -43,6 +44,7 @@ public class Lesson {
 
     //recurring by week day and time
     @Column(name = "lesson_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime time;
 
     @Column(name = "weeks")
@@ -55,6 +57,7 @@ public class Lesson {
         List<Integer> parsedWeeks = new ArrayList<>();
         int val = 0;
 
+        if(weeks!=null)
         for (String field : this.weeks.split(",")) {
             try {
                 val = Integer.parseInt(field);
@@ -70,7 +73,7 @@ public class Lesson {
     public void setWeeks(List<Integer> weeks) {
         String newWeeks = "";
         for (int i : weeks) {
-            newWeeks = newWeeks.concat(String.valueOf(i));
+            newWeeks = newWeeks.concat(String.valueOf(i)).concat(",");
         }
         this.weeks = newWeeks;
     }

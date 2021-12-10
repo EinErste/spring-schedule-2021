@@ -3,13 +3,9 @@ package ua.edu.ukma.schedule.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import ua.edu.ukma.schedule.model.Permissions;
-import ua.edu.ukma.schedule.model.Staff;
-import ua.edu.ukma.schedule.model.Student;
-import ua.edu.ukma.schedule.model.User;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+import ua.edu.ukma.schedule.model.*;
 import ua.edu.ukma.schedule.services.UserService;
 
 import static ua.edu.ukma.schedule.util.ConstantsUtil.*;
@@ -46,16 +42,45 @@ public class UserController {
         boolean isMethodist = user instanceof Staff;
         model.addAttribute("isStudent", isStudent);
         model.addAttribute("isMethodist", isMethodist);
-        model.addAttribute("year", isStudent ? ((Student) user).getYear() : "");
-        model.addAttribute("position", isMethodist ? ((Staff) user).getPosition() : "");
-        model.addAttribute("user", user);
-        model.addAttribute("adminSelected", user.getPermissions().get(0).getPermission().equals(Permissions.PermissionName.ADMIN));
+        if(isStudent)
+            model.addAttribute("formLink", "/editStudent-processing");
+        else
+            model.addAttribute("formLink", "/editStaff-processing");
 
-        model.addAttribute("methodistSelected", user.getPermissions().get(0).getPermission().equals(Permissions.PermissionName.METHODIST));
-        model.addAttribute("studentSelected", user.getPermissions().get(0).getPermission().equals(Permissions.PermissionName.STUDENT));
+        if(isStudent)
+            model.addAttribute("user", (Student)user);
+        else if(isMethodist)
+            model.addAttribute("user", (Staff)user);
+        else
+            model.addAttribute("user", user);
+
+
+//        model.addAttribute("adminSelected", user.getPermissions().get(0).getPermission().equals(Permissions.PermissionName.ADMIN));
+//
+//        model.addAttribute("methodistSelected", user.getPermissions().get(0).getPermission().equals(Permissions.PermissionName.METHODIST));
+//        model.addAttribute("studentSelected", user.getPermissions().get(0).getPermission().equals(Permissions.PermissionName.STUDENT));
 
         return USER_EDIT_LABEL;
     }
 
+    @PostMapping("/editStudent-processing")
+    public String editStudent(@ModelAttribute Student newUser, Model model) {
+        User user = userService.getById(newUser.getId());
+        newUser.setPassword(user.getPassword());
+        newUser.setPermissions(user.getPermissions());
+        model.addAttribute("user", userService.editUser(newUser));
+        model.addAttribute(SUCCESS_LABEL, "User edited successfully");
+        return REDIRECT_LABEL;
+    }
+
+    @PostMapping("/editStaff-processing")
+    public String editStaff(@ModelAttribute Staff newUser, Model model) {
+        User user = userService.getById(newUser.getId());
+        newUser.setPassword(user.getPassword());
+        newUser.setPermissions(user.getPermissions());
+        model.addAttribute("user", userService.editUser(newUser));
+        model.addAttribute(SUCCESS_LABEL, "User edited successfully");
+        return REDIRECT_LABEL;
+    }
 
 }

@@ -61,7 +61,8 @@
             <td th:text="${user.email}"></td>
             <td th:text="${user.permissions.get(0).permission}"></td>
             <td><a th:href="@{'/users/edit/' + ${user.id}}" th:text="Edit"></a> | <a
-                    th:attr="onclick=|remove('${user.id}')|" th:text="Delete"></a></td>
+                    th:attr="onclick=|remove('${user.id}')|" th:text="Delete"></a> | <a
+                    th:href="@{'/users/edit/' + ${user.id}}" th:text="ChangeRole"></a></td>
         </tr>
         </tbody>
     </table>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Add lesson</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="../static/css/form.css" th:href="@{/css/form.css}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../static/css/common.css" th:href="@{/css/common.css}" rel="stylesheet" type="text/css" media="all"/>
+
+    <link href="../static/js/select.js" th:href="@{/js/select.js}" rel="stylesheet" type="text/js" media="all"/>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+</head>
+
+<script>
+    function selectFunc(value) {
+        console.log(value);
+        if(value=="PRACTICE")
+            document.getElementById("group-div").hidden = false;
+        else
+            document.getElementById("group-div").hidden = true;
+    }
+</script>
+<div th:replace="fragments/navbar.html :: navigation"></div>
+<body>
+<div class="custom-form">
+    <form th:action="@{/addLesson-processing}" th:object="${lesson}" method="post">
+        <h2 class="text-center" th:text="#{admin.addLesson}"></h2>
+
+
+<!--        addLesson.group = Group-->
+<!--        addLesson.weeks = Weeks-->
+
+        <div class="form-group">
+            <label for="course">Course</label>
+            <select id="course" th:field="*{course}">
+                <div th:each="el: ${courses}">
+                            <option th:value="${el.id}" th:text="${el.name}"></option>
+                        </div>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="staff">Staff</label>
+            <select id="staff" th:field="*{staff}">
+                <div th:each="el: ${allStaff}">
+                    <option th:value="${el.id}" th:text="${el.surname + ' ' + el.name}"></option>
+                </div>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class = "multSelectLabel" for="weeks">Weeks</label>
+            <select multiple id="weeks" th:field="*{weeks}" class="selectpicker">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+            </select>
+        </div>
+
+<!--        <div class="form-group">-->
+<!--            <label for="hours">Hours</label>-->
+<!--            <input id="hours" type="number" class="form-control" th:placeholder="#{addCourse.hours}" th:field="*{hours}"-->
+<!--                   required="required">-->
+<!--        </div>-->
+        <div id = "group-div" class="form-group" hidden="true">
+            <label for="group">Group</label>
+            <input id="group" type="number" class="form-control" th:placeholder="#{addLesson.group}" th:field="*{group}"
+                   required="required">
+        </div>
+
+        <div class="form-group">
+            <label for="type">Lesson type</label>
+            <select id="type" th:field="*{type}" onchange="selectFunc(this.value)">
+                <option selected value="LECTURE">LECTURE</option>
+                <option value="PRACTICE">PRACTICE</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="time">Time</label>
+            <input id="time" class="form-control" th:placeholder="#{addLesson.weeks}" type="datetime-local" th:field="*{time}"
+                   required="required">
+        </div>
+
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" th:text="#{admin.add}"></button>
+        </div>
+    </form>
+    <div class="errors-div" th:if="${error != null}">
+        <div class="alert alert-danger" role="alert" th:text="${error}">
+        </div>
+    </div>
+</div>
+</body>
+</html>

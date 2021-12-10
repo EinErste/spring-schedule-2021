@@ -11,6 +11,7 @@ import ua.edu.ukma.schedule.model.Lesson;
 import ua.edu.ukma.schedule.model.Staff;
 import ua.edu.ukma.schedule.services.CourseService;
 import ua.edu.ukma.schedule.services.LessonService;
+import ua.edu.ukma.schedule.services.StaffService;
 
 import java.time.DayOfWeek;
 import java.util.*;
@@ -24,11 +25,13 @@ public class ScheduleController {
 
     private final LessonService lessonService;
     private final CourseService courseService;
+    private final StaffService staffService;
 
     @Autowired
-    public ScheduleController(LessonService lessonService, CourseService courseService) {
+    public ScheduleController(LessonService lessonService, CourseService courseService, StaffService staffService) {
         this.lessonService = lessonService;
         this.courseService = courseService;
+        this.staffService = staffService;
     }
 
     @GetMapping("/")
@@ -60,5 +63,23 @@ public class ScheduleController {
         model.addAttribute(SUCCESS_LABEL, "Course added successfully");
         return REDIRECT_LABEL;
     }
+
+    @GetMapping("/addLesson")
+    public String addLesson(Model model) {
+        model.addAttribute("lesson", new Lesson());
+        model.addAttribute(ERROR_LABEL, null);
+        model.addAttribute("courses", courseService.getAll());
+        model.addAttribute("allStaff", staffService.getAll());
+        return ADD_LESSON_LABEL;
+    }
+
+
+    @PostMapping("/addLesson-processing")
+    public String addLesson(@ModelAttribute Lesson lesson, Model model) {
+        model.addAttribute("lesson", lessonService.save(lesson));
+        model.addAttribute(SUCCESS_LABEL, "Lesson added successfully");
+        return REDIRECT_LABEL;
+    }
+
 
 }

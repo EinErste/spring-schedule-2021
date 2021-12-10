@@ -9,4 +9,6 @@ public interface UserService extends CRUDService<User> {
     Optional<User> findUserByEmail(String email);
 
     Collection<User> getSearched(String query);
+
+    User editUser(User user);
 }

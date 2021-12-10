@@ -26,7 +26,12 @@ select{
     border-radius: 2px;
     width: 100%;
 }
-
+.multSelectLabel{
+    display: block;
+}
+.selectpicker{
+    width: 100%;
+}
 .btn {
     font-size: 15px;
     font-weight: bold;

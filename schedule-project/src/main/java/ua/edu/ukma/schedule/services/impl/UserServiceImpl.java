@@ -39,6 +39,13 @@ public class UserServiceImpl extends AbstractCRUDService<User> implements UserSe
     }
 
     @Override
+    public User editUser(User user){
+        repository.saveAndFlush(user);
+        return user;
+    }
+
+
+    @Override
     @Cacheable(cacheNames = "username")
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         return getRepository().findUserByEmail(username)

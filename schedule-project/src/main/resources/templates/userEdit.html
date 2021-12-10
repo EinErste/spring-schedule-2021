@@ -13,11 +13,16 @@
 <body>
 
 <div class="custom-form">
-    <h2 class="text-center">Edit User</h2>
-    <form id="editForm">
-        <div class="form-group">
+        <form th:action="${formLink}" th:object="${user}" method="post">
+
+        <h2 class="text-center">Edit User</h2>
+            <div class="form-group" hidden>
+
             <input hidden id="id" type="text" class="form-control" th:field="${user.id}"
                    required="required">
+            </div>
+
+        <div class="form-group">
             <label for="email" hidden></label>
             <input id="email" type="text" class="form-control" th:placeholder="#{login.email}" th:field="${user.email}"
                    required="required">
@@ -32,14 +37,15 @@
             <input id="surname" type="text" class="form-control" th:placeholder="#{login.surname}" th:field="${user.surname}"
                    required="required">
         </div>
-        <div class="form-group">
+        <div class="form-group" th:if="${isMethodist}">
             <label for="position">Position (for methodists only):</label>
             <input id="position" type="text" class="form-control" th:placeholder="#{login.position}"
-                   th:field="${position}">
+                   th:field="${user.position}">
         </div>
-        <div class="form-group">
+
+        <div class="form-group" th:if="${isStudent}">
             <label for="year">Year (for students only):</label>
-            <select name="year" id="year" class="form-control" th:field="${year}">
+            <select name="year" id="year" class="form-control" th:field="${user.year}">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -48,51 +54,51 @@
                 <option value="6">6</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="role" hidden></label>
-            <select id="role" type="text" name="role" class="form-control"
-                    th:field="${user.permissions}"
-                    required="required">
-                <option value="1" selected th:if="${adminSelected}" >ADMIN</option>
-                <option value="4" th:if="!${adminSelected}" >ADMIN</option>
-                <option value="2" selected th:if="${methodistSelected}" >METHODIST</option>
-                <option value="5" th:if="!${methodistSelected}" >METHODIST</option>
-               <option value="3" selected th:if="${studentSelected}">STUDENT</option>
-                <option value="6" th:if="!${studentSelected}">STUDENT</option>
-               </select>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label for="role" hidden></label>-->
+<!--            <select id="role" type="text" name="role" class="form-control"-->
+<!--                    th:field="${user.permissions}"-->
+<!--                    required="required">-->
+<!--                <option value="1" selected th:if="${adminSelected}" >ADMIN</option>-->
+<!--                <option value="4" th:if="!${adminSelected}" >ADMIN</option>-->
+<!--                <option value="2" selected th:if="${methodistSelected}" >METHODIST</option>-->
+<!--                <option value="5" th:if="!${methodistSelected}" >METHODIST</option>-->
+<!--               <option value="3" selected th:if="${studentSelected}">STUDENT</option>-->
+<!--                <option value="6" th:if="!${studentSelected}">STUDENT</option>-->
+<!--               </select>-->
+<!--        </div>-->
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Edit</button>
         </div>
     </form>
 </div>
-<script>
-    $(function(){
+<!--<script>-->
+<!--    $(function(){-->
 
-        $('#editForm').submit(function(e){
-            console.log("created")
-            e.preventDefault();
-            $.ajax({
-                type: 'PUT',
-                url: '/edit/'+$(this).find('[name=id]').val(),
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    id:$(this).find('[name=id]').val(),
-                    name: $(this).find('[name=name]').val(),
-                    surname:$(this).find('[name=surname]').val(),
-                    email: $(this).find('[name=email]').val(),
-                    position:$(this).find('[name=position]').val(),
-                    year: $(this).find('[name=year]').val(),
-                    role:$(this).find('[name=role]').val()
-                }),
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                }
-            });
-        });
+<!--        $('#editForm').submit(function(e){-->
+<!--            console.log("created")-->
+<!--            e.preventDefault();-->
+<!--            $.ajax({-->
+<!--                type: 'PUT',-->
+<!--                url: '/edit/'+$(this).find('[name=id]').val(),-->
+<!--                contentType: 'application/json',-->
+<!--                data: JSON.stringify({-->
+<!--                    id:$(this).find('[name=id]').val(),-->
+<!--                    name: $(this).find('[name=name]').val(),-->
+<!--                    surname:$(this).find('[name=surname]').val(),-->
+<!--                    email: $(this).find('[name=email]').val(),-->
+<!--                    position:$(this).find('[name=position]').val(),-->
+<!--                    year: $(this).find('[name=year]').val(),-->
+<!--                    role:$(this).find('[name=role]').val()-->
+<!--                }),-->
+<!--                beforeSend: function(xhr) {-->
+<!--                    xhr.setRequestHeader('Content-Type', 'application/json');-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
 
 
-    });
-</script>
+<!--    });-->
+<!--</script>-->
 </body>
 </html>
